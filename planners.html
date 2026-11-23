@@ -261,6 +261,29 @@ html,body{background:var(--bg)}
 footer{background:var(--bg) !important;border-top:1px solid var(--line)}
 .art{background:var(--bg)}
 .art-img{background:var(--surface-2)}
+
+/* ===== footer ===== */
+footer{background:var(--surface-2) !important;border-top:0 !important;padding:0 !important;text-align:left !important;font-size:16px}
+.ft{width:min(1160px,100% - 40px);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1.3fr;gap:56px;padding:56px 0 44px}
+footer .logo-word{display:block !important;height:22px}
+.ft-brand p{max-width:380px;color:var(--ink-2);margin-top:18px;line-height:1.55}
+.ft h4{font-family:'Jost',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc-dark);margin:6px 0 18px}
+.ft-col a{display:block;color:var(--ink);text-decoration:none;font-weight:600;font-size:17px;margin-bottom:12px;width:max-content}
+.ft-col a:hover{color:var(--acc-dark)}
+.ft-col p{color:var(--ink-2);margin-bottom:16px;line-height:1.5;max-width:300px}
+.ft-col a.ft-mail{background:var(--ink);color:#fff;padding:13px 20px;font-size:15px;font-weight:700;margin:0;transition:transform .2s}
+.ft-col a.ft-mail:hover{color:#fff;transform:translateY(-2px)}
+.ft-band{background:var(--surface);display:flex;justify-content:center;gap:34px;padding:16px 0;overflow:hidden}
+.ft-fl{width:26px;height:26px;flex:none;overflow:visible}
+.ft-fl g ellipse{fill:var(--c)}.ft-fl circle{fill:var(--surface-2)}
+.ft-copy{background:var(--ink);color:#F3D5E1;text-align:center;padding:16px 20px;font-size:14px;margin:0}
+@media (max-width:860px){.ft{grid-template-columns:1fr;gap:30px;padding:40px 0 32px}.ft-band{gap:20px}.ft-fl{width:22px;height:22px}}
+
+/* footer: no flower band, no dark strip */
+.ft-band{display:none !important}
+.ft-copy{background:transparent !important;color:var(--ink-2) !important;border-top:1px solid var(--line);width:min(1160px,100% - 40px);margin:0 auto !important;padding:20px 0 28px !important;text-align:left !important;font-size:14px}
+.ft-copy{display:none !important}
+footer .ft{padding-bottom:56px}
 </style>
 </head>
 <body>
@@ -388,9 +411,15 @@ footer{background:var(--bg) !important;border-top:1px solid var(--line)}
   </div>
 </dialog>
 <footer>
-  <div class="links"><a href="planners.html#planners">Планеры</a><a href="index.html#articles">Блог</a><a href="planners.html#qa">Вопросы</a></div>
-  <p>Поддержка: <a href="mailto:support.my365plan@gmail.com">support.my365plan@gmail.com</a></p>
-  <p>© <span id="y">2026</span> my365plan — планеры для спокойной жизни.</p>
+  <div class="ft">
+    <div class="ft-brand">
+      <a class="logo" href="index.html" aria-label="my365plan"><img class="logo-icon" src="img/logo-icon.png" alt=""><img class="logo-word" src="img/logo-word.png" alt="my365plan"></a>
+      <p>Планеры для печати, которые помогают навести порядок в деньгах, доме и привычках. Скачали, распечатали, отметили.</p>
+    </div>
+    <nav class="ft-col"><h4>Разделы</h4><a href="planners.html#planners">Планеры</a><a href="index.html#articles">Блог</a><a href="planners.html#qa">Вопросы</a></nav>
+    <div class="ft-col"><h4>Напишите нам</h4><p>Вопрос по планеру или по скачиванию? Напишите нам.</p><a class="ft-mail" href="mailto:support.my365plan@gmail.com">support.my365plan@gmail.com</a></div>
+  </div>
+  <p class="ft-copy">© <span id="y">2026</span> my365plan. Цифровой товар: PDF приходит сразу после оплаты.</p>
 </footer>
 
 <script>
