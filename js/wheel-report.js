@@ -101,6 +101,48 @@
   };
   function plural(n, one, few, many) { n = Math.abs(n) % 100; var n1 = n % 10; if (n > 10 && n < 20) return many; if (n1 > 1 && n1 < 5) return few; if (n1 === 1) return one; return many; }
   var T = S[LANG], DL = D[LANG];
+  /* Strengths (6-10) and areas to grow (1-5): praise texts and report strings. */
+  var PRAISE = {
+    en: {health: "You take care of yourself, so your body has the energy to carry everything else.", career: "You are growing at work and know your worth. That takes focus and courage.", finances: "You are in control of your money. That gives you a freedom and calm many people dream of.", hobbies: "You know how to enjoy life and make time for what you love.", growth: "You keep learning and becoming a better version of yourself.", relationships: "People feel warm around you. You know how to love and how to be there.", recreation: "You know how to rest, and in today's busy world that is a real skill.", spirituality: "You have an inner anchor: values and calm that hold you on hard days.", family: "Your family is a place of support, and you put real care into it."},
+    ru: {health: "Вы заботитесь о себе, и у тела есть силы, чтобы вытянуть всё остальное.", career: "Вы растёте в работе и знаете себе цену. Для этого нужны фокус и смелость.", finances: "Вы управляете деньгами, а не они вами. Это свобода и спокойствие, о которых многие мечтают.", hobbies: "Вы умеете радоваться жизни и находите время на любимое.", growth: "Вы постоянно учитесь и становитесь лучшей версией себя.", relationships: "Рядом с вами людям тепло. Вы умеете любить и быть рядом.", recreation: "Вы умеете отдыхать, а в нашем ритме это настоящий навык.", spirituality: "У вас есть внутренняя опора: ценности и спокойствие, которые держат в трудные дни.", family: "Семья для вас — место силы, и вы вкладываете в неё много тепла."}
+  };
+  var R2 = {
+    en: {
+      tableTitle: "Your wheel at a glance", avg: "Average score",
+      strongCol: "Strengths", strongRange: "6–10", weakCol: "Areas to grow", weakRange: "1–5",
+      noneStrong: "No area above 5 yet, and that is okay: this is your starting point.", noneWeak: "No weak areas at all. Impressive!",
+      praiseTitle: "You are doing great",
+      praiseIntro: function (l) { return "Your strong foundation is " + l + ". That does not happen by chance: it is the result of your choices, effort and care. Take a moment to be proud of yourself."; },
+      praiseNone: function (l) { return "You looked at your life honestly, and that is the bravest first step. Your strongest areas right now are " + l + ": they are your resources to build on."; },
+      balTitle: "Now let's bring balance",
+      balIntro: "A wheel rolls smoothly only when it is round. These areas are not failures: they are where your biggest growth is waiting. Even +1 or +2 points here will make your whole life feel lighter.",
+      balNone: "All your areas are above 5. To keep the balance, pick the lowest one and take it one point higher this month.",
+      how: "How to start", and: " and ",
+      offK: "Make it easy", offT: "Our planners and checklists will do half the work",
+      offP: "Change sticks when it is written down. Our printable planners and checklists turn these steps into a simple routine: open, tick, see your progress.",
+      offAvail: "Available now: the Debt Payoff Planner", offSoon: "Planners and checklists for the other areas are on the way.",
+      offFinWeak: function (s) { return "Finances is one of your areas to grow (" + s + "). This planner was made exactly for that."; }
+    },
+    ru: {
+      tableTitle: "Ваше колесо с первого взгляда", avg: "Средний балл",
+      strongCol: "Сильные стороны", strongRange: "6–10", weakCol: "Зоны роста", weakRange: "1–5",
+      noneStrong: "Пока ни одной сферы выше 5, и это нормально: это ваша точка старта.", noneWeak: "Слабых сфер нет. Впечатляет!",
+      praiseTitle: "Вы молодец, и вот почему",
+      praiseIntro: function (l) { return "Ваш крепкий фундамент — " + l + ". Это не случайность, а результат ваших решений, усилий и заботы. Остановитесь на минуту и похвалите себя."; },
+      praiseNone: function (l) { return "Вы честно посмотрели на свою жизнь, а это самый смелый первый шаг. Ваши самые сильные сферы сейчас — " + l + ": на них можно опираться."; },
+      balTitle: "Теперь — к балансу",
+      balIntro: "Колесо едет ровно, только когда оно круглое. Эти сферы — не провал, а место, где вас ждёт самый большой рост. Даже +1–2 балла здесь сделают всю жизнь легче.",
+      balNone: "Все сферы выше 5. Чтобы сохранить баланс, выберите самую низкую и поднимите её на балл в этом месяце.",
+      how: "С чего начать", and: " и ",
+      offK: "Проще вместе с нами", offT: "Наши планеры и чек-листы сделают половину работы",
+      offP: "Перемены держатся, когда они на бумаге. Планеры и чек-листы для печати превращают эти шаги в простую привычку: открыли, отметили, видите прогресс.",
+      offAvail: "Уже доступен: планер «Закройте долги за 12 месяцев»", offSoon: "Планеры и чек-листы для других сфер уже готовятся.",
+      offFinWeak: function (s) { return "Финансы — одна из ваших зон роста (" + s + "). Этот планер создан как раз для неё."; }
+    }
+  };
+  var U = R2[LANG], PR = PRAISE[LANG];
+  function joinNames(arr) { var q = arr.map(function (n) { return LANG === "ru" ? "«" + n + "»" : n; }); return q.length < 2 ? q.join("") : q.slice(0, -1).join(", ") + U.and + q[q.length - 1]; }
+
   window.WL = {names: NAMES[LANG], lang: LANG};
 
   function lvl(s) { return s <= 4 ? "low" : s <= 7 ? "mid" : "high"; }
@@ -129,51 +171,38 @@
     window.__wheelData = {areas: areas, scores: scores.slice(), avg: avg, shape: A[0] + ". " + A[1], arch: A, focus: fi, others: others,
       strengths: [byHigh[0], byHigh[1]], tie: tie, D: DL, lvl: lvl, questions: questions, plan: T.plan};
 
+    var strong = byHigh.filter(function (i) { return scores[i] > 5; });
+    var weak = byLow.filter(function (i) { return scores[i] <= 5; });
+    function row(i) { var a = areas[i]; return '<li><i style="background:' + a.color + '"></i><span>' + esc(a.name) + '</span><b>' + scores[i] + '</b></li>'; }
     var circ = 2 * Math.PI * 52, pct = avg / 10;
     var h = '';
-    /* hero */
-    h += '<div class="rp-hero"><div class="rp-gauge"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="10"/>';
-    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
+    /* 1. table */
+    h += '<div class="rp-tbl"><div class="rp-tbl-head"><div class="rp-gauge rp-gauge-s"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="11"/>';
+    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" stroke-linecap="round" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
     h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#A65CEB"/><stop offset="1" stop-color="#2B7FF2"/></linearGradient></defs></svg>';
-    h += '<div class="rp-gauge-n"><b>' + num(avg) + '</b><span>' + esc(T.of10) + '</span></div></div>';
-    h += '<div class="rp-hero-t"><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + esc(A[0]) + '</h2><p class="rp-lead">' + esc(A[1]) + '</p>';
-    h += '<div class="rp-chips"><span class="rp-chip"><i style="background:' + s1.color + '"></i>' + esc(T.strongest) + ': ' + esc(s1.name) + ' · ' + scores[byHigh[0]] + '</span>';
-    h += '<span class="rp-chip"><i style="background:' + focus.color + '"></i>' + esc(T.focusChip) + ': ' + esc(focus.name) + ' · ' + fs + '</span>';
-    h += '<span class="rp-chip">' + esc(T.gapText(spread)) + '</span></div></div></div>';
-    /* strengths + focus */
-    h += '<div class="rp-two">';
-    h += '<div class="rp-card rp-green"><p class="rp-k">' + esc(T.strengths) + '</p><h3>' + esc(s1.name) + ' & ' + esc(s2.name) + '</h3><p>' + esc(T.strengthsText) + '</p></div>';
-    h += '<div class="rp-card" style="--c:' + focus.color + ';background:color-mix(in srgb,' + focus.color + ' 14%,#fff)"><p class="rp-k">' + esc(T.startWith) + '</p><h3>' + esc(focus.name) + ' · ' + fs + '</h3><p>' + esc(fd.means) + '</p>' + (tie ? '<p class="rp-small">' + esc(T.tieNote(focus.name)) + '</p>' : '') + '</div>';
-    h += '</div>';
-    /* first week */
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.firstWeek) + '</h3><p class="rp-sub">' + esc(T.firstWeekSub) + '</p><div class="rp-steps">';
-    fd.actions.forEach(function (a, i) { h += '<div class="rp-step" style="--c:' + focus.color + '"><span>' + (i + 1) + '</span><p>' + esc(a) + '</p></div>'; });
+    h += '<div class="rp-gauge-n"><b>' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + esc(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
+    h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + ' <span>' + U.strongRange + '</span></p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
+    h += '<div class="rp-col rp-col-w"><p class="rp-col-h">' + esc(U.weakCol) + ' <span>' + U.weakRange + '</span></p>' + (weak.length ? '<ul>' + weak.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneWeak) + '</p>') + '</div></div></div>';
+    /* 2. praise */
+    var praiseSet = strong.length ? strong : byHigh.slice(0, 2);
+    var names = praiseSet.slice(0, 3).map(function (i) { return areas[i].name; });
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(U.praiseTitle) + ' ✦</h3><p class="rp-praise-lead">' + esc(strong.length ? U.praiseIntro(joinNames(names)) : U.praiseNone(joinNames(names))) + '</p><div class="rp-sgrid">';
+    praiseSet.forEach(function (i) { var a = areas[i]; h += '<div class="rp-scard" style="--c:' + a.color + '"><div class="rp-scard-top"><span>' + esc(a.name) + '</span><b>' + scores[i] + '</b></div><p>' + esc(PR[a.key]) + '</p></div>'; });
     h += '</div></div>';
-    /* also */
-    if (others.length) {
-      h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.alsoTitle) + '</h3><div class="rp-two">';
-      others.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-card rp-mini" style="background:color-mix(in srgb,' + a.color + ' 12%,#fff)"><h3><i style="background:' + a.color + '"></i>' + esc(a.name) + ' · ' + scores[i] + '</h3><p>' + esc(d[lvl(scores[i])]) + '</p><p class="rp-small">' + esc(T.oneStep + d.actions[0]) + '</p></div>'; });
-      h += '</div><p class="rp-sub">' + esc(T.alsoNote) + '</p></div>';
-    }
-    /* offer */
-    var fin = focus.key === "finances";
+    /* 3. balance: areas to grow */
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(U.balTitle) + '</h3><p class="rp-praise-lead">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
+    var growSet = weak.length ? weak : [byLow[0]];
+    h += '<div class="rp-wlist">';
+    growSet.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-wcard" style="--c:' + a.color + '"><div class="rp-wcard-l"><span class="rp-wscore">' + scores[i] + '</span><h4>' + esc(a.name) + '</h4><p>' + esc(d.means) + '</p></div><div class="rp-wcard-r"><p class="rp-k">' + esc(U.how) + '</p><ul class="rp-check">' + d.actions.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul><p class="rp-tipline">' + esc(d[lvl(scores[i])]) + '</p></div></div>'; });
+    h += '</div></div>';
+    /* 4. planners and checklists */
+    var finWeak = weak.some(function (i) { return areas[i].key === "finances"; });
+    var fs2 = scores[areas.map(function (a) { return a.key; }).indexOf("finances")];
     h += '<div class="rp-offer"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
-    h += '<p class="rp-k">' + esc(T.offerKicker) + '</p><h3>' + esc(fin ? T.offerFin(fs) : T.offerOther(focus.name)) + '</h3>';
-    if (!fin) h += '<p class="rp-offer-p">' + esc(T.offerOtherText) + '</p>';
+    h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + esc(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
+    h += '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>' + (finWeak ? '<p class="rp-offer-p">' + esc(U.offFinWeak(fs2)) + '</p>' : '');
     h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-    h += '<a class="rp-buy" href="' + T.offerHref + '">' + esc(T.offerBtn) + '</a><p class="rp-small">' + esc(T.offerNote) + '</p></div></div>';
-    /* grow */
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.growTitle) + '</h3><p class="rp-sub">' + esc(T.growSub) + '</p><div class="rp-grow">';
-    questions.forEach(function (q) { h += '<div class="rp-q"><span>' + esc(q[0].charAt(0)) + '</span><div><b>' + esc(q[0]) + '</b><p>' + esc(q[1]) + '</p></div></div>'; });
-    h += '</div></div>';
-    /* plan */
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.planTitle) + '</h3><div class="rp-weeks">';
-    T.plan.forEach(function (p, i) { h += '<div class="rp-week rp-w' + i + '"><b>' + esc(p[0]) + '</b><p>' + esc(p[1]) + '</p></div>'; });
-    h += '</div></div>';
-    /* all areas */
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.allTitle) + '</h3><div class="rp-all">';
-    idx.forEach(function (i) { var a = areas[i], s = scores[i]; h += '<div class="rp-area"><div class="rp-area-top"><i style="background:' + a.color + '"></i><span>' + esc(a.name) + '</span><b>' + s + '</b></div><div class="rp-bar"><i style="width:' + s * 10 + '%;background:' + a.color + '"></i></div><p>' + esc(DL[a.key][lvl(s)]) + '</p></div>'; });
-    h += '</div></div>';
+    h += '<a class="rp-buy" href="' + T.offerHref + '">' + esc(T.offerBtn) + '</a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
     /* gift */
     h += '<div class="rp-gift"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
     h += '<p class="rp-note">' + esc(T.disclaimer) + '</p>';
