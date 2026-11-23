@@ -441,6 +441,16 @@ body{background-color:var(--bg);color:var(--ink)}
 .rp-col-s,.rp-col-w{background:var(--surface);color:var(--ink)}
 .rp-col-s .rp-col-h,.rp-col-s li,.rp-col-w .rp-col-h,.rp-col-w li{color:var(--ink);text-shadow:none}
 .wq-list li.hl{background:rgba(255,255,255,.7)}
+
+/* ===== score as 10 flowers ===== */
+.rp-meter{display:flex;gap:4px;margin-bottom:14px}
+.rp-meter i{display:block;width:28px;height:28px}
+.rp-meter svg{display:block;width:100%;height:100%;overflow:visible}
+.rp-meter g ellipse{fill:transparent;stroke:var(--c);stroke-width:1.2}
+.rp-meter .ct{fill:var(--white);stroke:var(--c);stroke-width:1.2}
+.rp-meter i.on g ellipse{fill:var(--c)}
+.rp-meter i.on .ct{fill:var(--surface);stroke:var(--surface)}
+@media (max-width:420px){.rp-meter i{width:23px;height:23px}.rp-meter{gap:2px}}
 </style>
 </head>
 <body>
