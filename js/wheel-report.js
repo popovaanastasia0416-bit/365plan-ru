@@ -178,7 +178,7 @@
     var h = '';
     /* 1. table */
     h += '<div class="rp-tbl"><div class="rp-tbl-head"><div class="rp-gauge rp-gauge-s"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="11"/>';
-    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" stroke-linecap="round" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
+    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" stroke-linecap="butt" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
     h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#A65CEB"/><stop offset="1" stop-color="#2B7FF2"/></linearGradient></defs></svg>';
     h += '<div class="rp-gauge-n"><b>' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + esc(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
     h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + ' <span>' + U.strongRange + '</span></p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
@@ -251,7 +251,7 @@
       }
       function hgt(t, size, kind, w) { var k = font(kind); doc.setFontSize(size * k); return doc.splitTextToSize(t, w).length * size * k * 1.35; }
       function txt(t, x, y, size, kind, color, w, align) { var k = font(kind); doc.setFontSize(size * k); doc.setTextColor.apply(doc, color || INK); var L = w ? doc.splitTextToSize(t, w) : [t]; doc.text(L, x, y, {align: align || "left", lineHeightFactor: 1.35}); return y + L.length * size * k * 1.35; }
-      function card(x, y, w, h, fill, stroke) { doc.setFillColor.apply(doc, fill); if (stroke) { doc.setDrawColor.apply(doc, stroke); doc.setLineWidth(0.8); doc.roundedRect(x, y, w, h, 12, 12, "FD"); } else doc.roundedRect(x, y, w, h, 12, 12, "F"); }
+      function card(x, y, w, h, fill, stroke) { doc.setFillColor.apply(doc, fill); if (stroke) { doc.setDrawColor.apply(doc, stroke); doc.setLineWidth(0.8); doc.rect(x, y, w, h, "FD"); } else doc.rect(x, y, w, h, "F"); }
       function band(h) { var g0 = [253, 226, 238], g1 = [243, 233, 255], g2 = [228, 242, 255]; for (var gx = 0; gx < PW; gx += 4) { var t = gx / PW, a = t < .5 ? g0 : g1, b = t < .5 ? g1 : g2, u = t < .5 ? t * 2 : (t - .5) * 2; doc.setFillColor(a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u); doc.rect(gx, 0, 4.5, h, "F"); } }
       function kicker(t, x, y, color) { doc.setCharSpace(1.2); txt(t.toUpperCase(), x, y, 7.5, "b", color || MUTED); doc.setCharSpace(0); }
       function section(t, y, color) { doc.setFillColor.apply(doc, color); doc.circle(M + 4, y - 5, 3.5, "F"); return txt(t, M + 15, y, 17, "h", INK) + 4; }
@@ -265,7 +265,7 @@
       txt(num(W.avg), PW - M - 126, 104, 30, "h", PLUM); txt("/ 10", PW - M - 60, 104, 12, "n", MUTED);
       card(M, 168, CW, 296, [250, 247, 255]); if (png) doc.addImage(png, "JPEG", M + 14, 182, 268, 268);
       var lx = M + 304, lw = CW - 304 - 18, ly = 196; kicker(T.pScores, lx, ly - 2); ly += 20;
-      W.areas.forEach(function (a, i) { var c = hex(a.color); doc.setFillColor.apply(doc, c); doc.circle(lx + 4, ly - 3.5, 3.6, "F"); txt(a.name, lx + 14, ly, 10, "n", INK); txt(String(W.scores[i]), lx + lw, ly, 10.5, "b", INK, null, "right"); doc.setFillColor(236, 232, 242); doc.roundedRect(lx + 14, ly + 5, lw - 14, 5, 2.5, 2.5, "F"); doc.setFillColor.apply(doc, c); doc.roundedRect(lx + 14, ly + 5, (lw - 14) * W.scores[i] / 10, 5, 2.5, 2.5, "F"); ly += 27; });
+      W.areas.forEach(function (a, i) { var c = hex(a.color); doc.setFillColor.apply(doc, c); doc.circle(lx + 4, ly - 3.5, 3.6, "F"); txt(a.name, lx + 14, ly, 10, "n", INK); txt(String(W.scores[i]), lx + lw, ly, 10.5, "b", INK, null, "right"); doc.setFillColor(236, 232, 242); doc.rect(lx + 14, ly + 5, lw - 14, 5, "F"); doc.setFillColor.apply(doc, c); doc.rect(lx + 14, ly + 5, (lw - 14) * W.scores[i] / 10, 5, "F"); ly += 27; });
       var y = 486, shTitle = W.arch[0], shText = W.arch[1];
       var shH = hgt(shText, 11.5, "hi", CW - 40) + 62;
       card(M, y, CW, shH, [253, 238, 245]); kicker(T.pSays, M + 20, y + 20, PLUM);
@@ -273,9 +273,9 @@
       var s1 = W.areas[W.strengths[0]], s2 = W.areas[W.strengths[1]], colW = (CW - 14) / 2;
       var stT = T.pStrengthsText(s1.name + " (" + W.scores[W.strengths[0]] + ")", s2.name + " (" + W.scores[W.strengths[1]] + ")");
       var bh = Math.max(hgt(stT, 10, "n", colW - 40), hgt(d.means, 10, "n", colW - 40)) + 70, gC = [125, 203, 52];
-      card(M, y, colW, bh, mix(gC, .86)); doc.setFillColor.apply(doc, gC); doc.roundedRect(M, y, 6, bh, 3, 3, "F");
+      card(M, y, colW, bh, mix(gC, .86)); doc.setFillColor.apply(doc, gC); doc.rect(M, y, 6, bh, "F");
       kicker(T.strengths, M + 22, y + 22, [70, 120, 30]); txt(s1.name + " & " + s2.name, M + 22, y + 44, 15, "h", INK, colW - 40); txt(stT, M + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
-      var x2 = M + colW + 14; card(x2, y, colW, bh, mix(fc, .84)); doc.setFillColor.apply(doc, fc); doc.roundedRect(x2, y, 6, bh, 3, 3, "F");
+      var x2 = M + colW + 14; card(x2, y, colW, bh, mix(fc, .84)); doc.setFillColor.apply(doc, fc); doc.rect(x2, y, 6, bh, "F");
       kicker(T.startWith, x2 + 22, y + 22, dark(fc)); txt(f.name + " (" + W.scores[W.focus] + ")", x2 + 22, y + 44, 15, "h", INK, colW - 40); txt(d.means, x2 + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
       footer(1);
       /* page 2 */
@@ -287,7 +287,7 @@
       if (W.others.length) {
         y = section(T.alsoTitle, y + 6, [255, 148, 24]); var n = W.others.length, ow = (CW - 14 * (n - 1)) / n, oh = 0;
         W.others.forEach(function (i) { var a = W.areas[i], dd = W.D[a.key]; oh = Math.max(oh, hgt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], 9.5, "n", ow - 36)); }); oh += 58;
-        W.others.forEach(function (i, k) { var a = W.areas[i], dd = W.D[a.key], c = hex(a.color), ox = M + k * (ow + 14); card(ox, y, ow, oh, mix(c, .87)); doc.setFillColor.apply(doc, c); doc.roundedRect(ox, y, ow, 6, 3, 3, "F"); txt(a.name + " · " + W.scores[i], ox + 18, y + 30, 14, "h", INK); txt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], ox + 18, y + 48, 9.5, "n", [60, 60, 66], ow - 36); });
+        W.others.forEach(function (i, k) { var a = W.areas[i], dd = W.D[a.key], c = hex(a.color), ox = M + k * (ow + 14); card(ox, y, ow, oh, mix(c, .87)); doc.setFillColor.apply(doc, c); doc.rect(ox, y, ow, 6, "F"); txt(a.name + " · " + W.scores[i], ox + 18, y + 30, 14, "h", INK); txt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], ox + 18, y + 48, 9.5, "n", [60, 60, 66], ow - 36); });
         y += oh + 22;
       }
       y = section(T.growTitle, y + 6, [43, 127, 242]); txt(T.pGrowSub, M + 15, y + 2, 10, "hi", MUTED); y += 16;
@@ -298,10 +298,10 @@
       doc.addPage(); band(10); kicker(T.pKeep, M, 52, PLUM); txt(T.planTitle, M, 84, 24, "h", INK); y = 106;
       var tw = (CW - 30) / 4, th = 0; W.plan.forEach(function (p) { th = Math.max(th, hgt(p[1], 9.5, "n", tw - 28)); }); th += 74;
       var tc = [[253, 226, 238], [243, 233, 255], [228, 242, 255], [232, 247, 225]];
-      W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tc[i]); txt(p[0], tx + 14, y + 30, 16, "h", INK); txt(p[1], tx + 14, y + 50, 9.5, "n", [60, 60, 66], tw - 28); doc.setDrawColor(120, 110, 130); doc.setLineWidth(0.9); doc.roundedRect(tx + tw - 26, y + 14, 13, 13, 3, 3, "S"); });
+      W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tc[i]); txt(p[0], tx + 14, y + 30, 16, "h", INK); txt(p[1], tx + 14, y + 50, 9.5, "n", [60, 60, 66], tw - 28); doc.setDrawColor(120, 110, 130); doc.setLineWidth(0.9); doc.rect(tx + tw - 26, y + 14, 13, 13, "S"); });
       y += th + 30; y = section(T.allTitle, y, [255, 90, 78]) + 4;
       var aw = (CW - 20) / 3, ah = 0; W.areas.forEach(function (a, i) { ah = Math.max(ah, hgt(W.D[a.key][W.lvl(W.scores[i])], 8.8, "n", aw - 28)); }); ah += 46;
-      W.areas.forEach(function (a, i) { var c = hex(a.color), ax = M + (i % 3) * (aw + 10), ay = y + Math.floor(i / 3) * (ah + 10); card(ax, ay, aw, ah, mix(c, .9)); doc.setFillColor.apply(doc, c); doc.roundedRect(ax, ay, aw, 5, 2.5, 2.5, "F"); txt(a.name, ax + 14, ay + 24, 10, "b", INK); txt(String(W.scores[i]), ax + aw - 14, ay + 26, 18, "h", dark(c), null, "right"); txt(W.D[a.key][W.lvl(W.scores[i])], ax + 14, ay + 40, 8.8, "n", [70, 70, 76], aw - 28); });
+      W.areas.forEach(function (a, i) { var c = hex(a.color), ax = M + (i % 3) * (aw + 10), ay = y + Math.floor(i / 3) * (ah + 10); card(ax, ay, aw, ah, mix(c, .9)); doc.setFillColor.apply(doc, c); doc.rect(ax, ay, aw, 5, "F"); txt(a.name, ax + 14, ay + 24, 10, "b", INK); txt(String(W.scores[i]), ax + aw - 14, ay + 26, 18, "h", dark(c), null, "right"); txt(W.D[a.key][W.lvl(W.scores[i])], ax + 14, ay + 40, 8.8, "n", [70, 70, 76], aw - 28); });
       y += 3 * (ah + 10) + 14; font("n"); doc.setFontSize(7.5); var dExtra = (doc.splitTextToSize(T.disclaimer, CW).length - 1) * 10; var nh = PH - 60 - dExtra - y;
       if (nh > 70) { card(M, y, CW, nh, [252, 250, 255], LINE); kicker(T.pNotes, M + 18, y + 22); doc.setDrawColor(222, 214, 232); doc.setLineWidth(0.6); for (var nl = y + 46; nl < y + nh - 10; nl += 22) doc.line(M + 18, nl, PW - M - 18, nl); }
       txt(T.disclaimer, PW / 2, PH - 48 - dExtra, 7.5, "n", MUTED, CW, "center");
