@@ -173,6 +173,7 @@
 
     var strong = byHigh.filter(function (i) { return scores[i] > 5; });
     var weak = byLow.filter(function (i) { return scores[i] <= 5; });
+    window.__wheelData.strong = strong; window.__wheelData.weak = weak; window.__wheelData.PR = PR; window.__wheelData.U = U;
     function em(t) { return esc(t).replace(/\*([^*]+)\*/g, '<em>$1</em>'); }
     function row(i, k) { var a = areas[i]; return '<li style="--d:' + (k * 70) + 'ms">' + esc(a.name) + '</li>'; }
     var circ = 2 * Math.PI * 52, pct = avg / 10;
@@ -283,7 +284,7 @@
     clone.removeAttribute("class"); clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", "620"); clone.setAttribute("height", "620");
     clone.querySelectorAll(".wq-band").forEach(function (b) { b.style.opacity = 1; });
     var img = new Image();
-    img.onload = function () { var c = document.createElement("canvas"); c.width = 1240; c.height = 1240; var ctx = c.getContext("2d"); ctx.fillStyle = "#FAF7FF"; ctx.fillRect(0, 0, 1240, 1240); ctx.drawImage(img, 0, 0, 1240, 1240); cb(c.toDataURL("image/jpeg", 0.88)); };
+    img.onload = function () { var c = document.createElement("canvas"); c.width = 1240; c.height = 1240; var ctx = c.getContext("2d"); ctx.fillStyle = "#FFF6F9"; ctx.fillRect(0, 0, 1240, 1240); ctx.drawImage(img, 0, 0, 1240, 1240); cb(c.toDataURL("image/jpeg", 0.88)); };
     img.onerror = function () { cb(null); };
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
   }
@@ -324,56 +325,108 @@
       function kicker(t, x, y, color) { doc.setCharSpace(1.2); txt(t.toUpperCase(), x, y, 7.5, "b", color || MUTED); doc.setCharSpace(0); }
       function section(t, y, color) { doc.setFillColor.apply(doc, color); doc.circle(M + 4, y - 5, 3.5, "F"); return txt(t, M + 15, y, 17, "h", INK) + 4; }
       function footer(n) { doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(0.6); doc.line(M, PH - 38, PW - M, PH - 38); txt(T.pFooter, M, PH - 22, 8.5, "n", MUTED); txt(n + " / 3", PW - M, PH - 22, 8.5, "n", MUTED, null, "right"); }
-      var f = W.areas[W.focus], d = W.D[f.key], fc = hex(f.color);
-      var date = new Date().toLocaleDateString(T.locale, {year: "numeric", month: "long", day: "numeric"});
-      /* page 1 */
-      band(150);
-      txt(T.pTitle, M, 74, 30, "h", INK); txt(T.pSub, M, 98, 12, "hi", [110, 80, 110]); txt(date, M, 120, 9, "n", MUTED);
-      card(PW - M - 140, 44, 140, 76, [255, 255, 255]); kicker(T.balance, PW - M - 126, 64, PLUM);
-      txt(num(W.avg), PW - M - 126, 104, 30, "h", PLUM); txt("/ 10", PW - M - 60, 104, 12, "n", MUTED);
-      card(M, 168, CW, 296, [250, 247, 255]); if (png) doc.addImage(png, "JPEG", M + 14, 182, 268, 268);
-      var lx = M + 304, lw = CW - 304 - 18, ly = 196; kicker(T.pScores, lx, ly - 2); ly += 20;
-      W.areas.forEach(function (a, i) { var c = hex(a.color); doc.setFillColor.apply(doc, c); doc.circle(lx + 4, ly - 3.5, 3.6, "F"); txt(a.name, lx + 14, ly, 10, "n", INK); txt(String(W.scores[i]), lx + lw, ly, 10.5, "b", INK, null, "right"); doc.setFillColor(236, 232, 242); doc.rect(lx + 14, ly + 5, lw - 14, 5, "F"); doc.setFillColor.apply(doc, c); doc.rect(lx + 14, ly + 5, (lw - 14) * W.scores[i] / 10, 5, "F"); ly += 27; });
-      var y = 486, shTitle = W.arch[0], shText = W.arch[1];
-      var shH = hgt(shText, 11.5, "hi", CW - 40) + 62;
-      card(M, y, CW, shH, [253, 238, 245]); kicker(T.pSays, M + 20, y + 20, PLUM);
-      txt(shTitle, M + 20, y + 44, 17, "h", INK); txt(shText, M + 20, y + 62, 11.5, "hi", [70, 50, 70], CW - 40); y += shH + 14;
-      var s1 = W.areas[W.strengths[0]], s2 = W.areas[W.strengths[1]], colW = (CW - 14) / 2;
-      var stT = T.pStrengthsText(s1.name + " (" + W.scores[W.strengths[0]] + ")", s2.name + " (" + W.scores[W.strengths[1]] + ")");
-      var bh = Math.max(hgt(stT, 10, "n", colW - 40), hgt(d.means, 10, "n", colW - 40)) + 70, gC = [125, 203, 52];
-      card(M, y, colW, bh, mix(gC, .86)); doc.setFillColor.apply(doc, gC); doc.rect(M, y, 6, bh, "F");
-      kicker(T.strengths, M + 22, y + 22, [70, 120, 30]); txt(s1.name + " & " + s2.name, M + 22, y + 44, 15, "h", INK, colW - 40); txt(stT, M + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
-      var x2 = M + colW + 14; card(x2, y, colW, bh, mix(fc, .84)); doc.setFillColor.apply(doc, fc); doc.rect(x2, y, 6, bh, "F");
-      kicker(T.startWith, x2 + 22, y + 22, dark(fc)); txt(f.name + " (" + W.scores[W.focus] + ")", x2 + 22, y + 44, 15, "h", INK, colW - 40); txt(d.means, x2 + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
-      footer(1);
-      /* page 2 */
-      doc.addPage(); band(10); kicker(T.pFocusKicker, M, 52, PLUM); txt(T.pPlanFor + (LANG === "ru" ? "«" + f.name + "»" : f.name), M, 84, 24, "h", INK); txt(T.pSmall, M, 106, 12, "hi", [110, 80, 110]);
-      y = 136; var stepH = 0; d.actions.forEach(function (a) { stepH += Math.max(hgt(a, 10.5, "n", CW - 90), 22) + 12; });
-      card(M, y, CW, stepH + 48, mix(fc, .88)); kicker(T.pSteps, M + 20, y + 24, dark(fc));
-      var sy = y + 52; d.actions.forEach(function (a, i) { doc.setFillColor.apply(doc, fc); doc.circle(M + 34, sy - 4, 11, "F"); txt(String(i + 1), M + 34, sy + 0.5, 11, "b", [255, 255, 255], null, "center"); var e = txt(a, M + 56, sy, 10.5, "n", INK, CW - 90); sy = Math.max(e, sy + 22) + 12; });
-      y += stepH + 48 + 18;
-      if (W.others.length) {
-        y = section(T.alsoTitle, y + 6, [255, 148, 24]); var n = W.others.length, ow = (CW - 14 * (n - 1)) / n, oh = 0;
-        W.others.forEach(function (i) { var a = W.areas[i], dd = W.D[a.key]; oh = Math.max(oh, hgt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], 9.5, "n", ow - 36)); }); oh += 58;
-        W.others.forEach(function (i, k) { var a = W.areas[i], dd = W.D[a.key], c = hex(a.color), ox = M + k * (ow + 14); card(ox, y, ow, oh, mix(c, .87)); doc.setFillColor.apply(doc, c); doc.rect(ox, y, ow, 6, "F"); txt(a.name + " · " + W.scores[i], ox + 18, y + 30, 14, "h", INK); txt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], ox + 18, y + 48, 9.5, "n", [60, 60, 66], ow - 36); });
-        y += oh + 22;
+      var BG = [255, 246, 249], SURF = [255, 193, 220], SURF2 = [255, 227, 239], ACC = [255, 79, 158], ACCD = [196, 42, 121], WHITE = [255, 255, 255];
+      INK = [66, 43, 38]; MUTED = [107, 74, 66]; LINE = [243, 220, 230];
+      var U = W.U, PR = W.PR, y = 0, TOP = 56, BOT = PH - 50;
+      function plain(t) { return String(t).replace(/\*/g, ""); }
+      function paintBg() { doc.setFillColor(BG[0], BG[1], BG[2]); doc.rect(0, 0, PW, PH, "F"); }
+      function newPage() { doc.addPage(); paintBg(); y = TOP; }
+      function ensure(h) { if (y + h > BOT) newPage(); }
+      function lines(t, size, kind, w) { return Math.round(hgt(t, size, kind, w) / (size * (kind === "h" ? .74 : 1) * 1.35)); }
+      function flowers(x, fy, size, n, color) {
+        for (var k = 0; k < 10; k++) {
+          var on = k < n, cx = x + k * (size + 3) + size / 2, cy = fy + size / 2, orb = size * .29, pr = size * .21;
+          doc.setLineWidth(.8);
+          for (var q = 0; q < 6; q++) {
+            var ang = q * Math.PI / 3, px = cx + orb * Math.cos(ang), py = cy + orb * Math.sin(ang);
+            if (on) { doc.setFillColor.apply(doc, color); doc.circle(px, py, pr, "F"); } else { doc.setDrawColor.apply(doc, color); doc.circle(px, py, pr, "S"); }
+          }
+          if (on) { doc.setFillColor.apply(doc, SURF); doc.circle(cx, cy, size * .15, "F"); }
+          else { doc.setFillColor.apply(doc, WHITE); doc.setDrawColor.apply(doc, color); doc.circle(cx, cy, size * .17, "FD"); }
+        }
       }
-      y = section(T.growTitle, y + 6, [43, 127, 242]); txt(T.pGrowSub, M + 15, y + 2, 10, "hi", MUTED); y += 16;
-      var gw = (CW - 14) / 2, gh = Math.min(140, (PH - 60 - y - 14) / 2);
-      W.questions.forEach(function (q, i) { var gx = M + (i % 2) * (gw + 14), gy = y + Math.floor(i / 2) * (gh + 14); card(gx, gy, gw, gh, [255, 255, 255], LINE); doc.setFillColor(243, 233, 255); doc.circle(gx + 26, gy + 26, 13, "F"); txt(q[0].charAt(0), gx + 26, gy + 32, 16, "h", [90, 50, 150], null, "center"); txt(q[0], gx + 46, gy + 24, 9, "b", [90, 50, 150]); var qe = txt(q[1], gx + 46, gy + 38, 9.5, "n", INK, gw - 62); doc.setDrawColor(214, 206, 224); doc.setLineWidth(0.6); for (var l = Math.max(qe + 14, gy + 62); l < gy + gh - 8; l += 20) doc.line(gx + 18, l, gx + gw - 18, l); });
-      footer(2);
-      /* page 3 */
-      doc.addPage(); band(10); kicker(T.pKeep, M, 52, PLUM); txt(T.planTitle, M, 84, 24, "h", INK); y = 106;
-      var tw = (CW - 30) / 4, th = 0; W.plan.forEach(function (p) { th = Math.max(th, hgt(p[1], 9.5, "n", tw - 28)); }); th += 74;
-      var tc = [[253, 226, 238], [243, 233, 255], [228, 242, 255], [232, 247, 225]];
-      W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tc[i]); txt(p[0], tx + 14, y + 30, 16, "h", INK); txt(p[1], tx + 14, y + 50, 9.5, "n", [60, 60, 66], tw - 28); doc.setDrawColor(120, 110, 130); doc.setLineWidth(0.9); doc.rect(tx + tw - 26, y + 14, 13, 13, "S"); });
-      y += th + 30; y = section(T.allTitle, y, [255, 90, 78]) + 4;
-      var aw = (CW - 20) / 3, ah = 0; W.areas.forEach(function (a, i) { ah = Math.max(ah, hgt(W.D[a.key][W.lvl(W.scores[i])], 8.8, "n", aw - 28)); }); ah += 46;
-      W.areas.forEach(function (a, i) { var c = hex(a.color), ax = M + (i % 3) * (aw + 10), ay = y + Math.floor(i / 3) * (ah + 10); card(ax, ay, aw, ah, mix(c, .9)); doc.setFillColor.apply(doc, c); doc.rect(ax, ay, aw, 5, "F"); txt(a.name, ax + 14, ay + 24, 10, "b", INK); txt(String(W.scores[i]), ax + aw - 14, ay + 26, 18, "h", dark(c), null, "right"); txt(W.D[a.key][W.lvl(W.scores[i])], ax + 14, ay + 40, 8.8, "n", [70, 70, 76], aw - 28); });
-      y += 3 * (ah + 10) + 14; font("n"); doc.setFontSize(7.5); var dExtra = (doc.splitTextToSize(T.disclaimer, CW).length - 1) * 10; var nh = PH - 60 - dExtra - y;
-      if (nh > 70) { card(M, y, CW, nh, [252, 250, 255], LINE); kicker(T.pNotes, M + 18, y + 22); doc.setDrawColor(222, 214, 232); doc.setLineWidth(0.6); for (var nl = y + 46; nl < y + nh - 10; nl += 22) doc.line(M + 18, nl, PW - M - 18, nl); }
-      txt(T.disclaimer, PW / 2, PH - 48 - dExtra, 7.5, "n", MUTED, CW, "center");
-      footer(3); doc.save(T.file);
+      function heading(t, kick) { ensure(60); if (kick) { kicker(kick, M, y, ACCD); y += 16; } y = txt(plain(t), M, y + 6, 18, "h", INK, CW) + 4; }
+      var date = new Date().toLocaleDateString(T.locale, {year: "numeric", month: "long", day: "numeric"});
+      var strong = W.strong, weak = W.weak, praiseSet = strong.length ? strong : W.areas.map(function (a, i) { return i; }).sort(function (p, q) { return W.scores[q] - W.scores[p]; }).slice(0, 2);
+      /* page 1 */
+      paintBg(); y = TOP;
+      txt(T.pTitle, M, 66, 30, "h", INK); txt(T.pSub, M, 90, 12, "hi", MUTED); txt(date, M, 108, 9, "n", MUTED);
+      card(PW - M - 124, 40, 124, 70, SURF); kicker(T.balance, PW - M - 110, 60, ACCD); txt(num(W.avg), PW - M - 110, 98, 30, "h", INK); txt("/ 10", PW - M - 52, 98, 11, "n", MUTED);
+      if (png) doc.addImage(png, "JPEG", M, 134, 252, 252);
+      var px = M + 270, pw = CW - 270, py = 134;
+      function listPanel(title, idx, fill, tc) {
+        var hl = lines(title.toUpperCase(), 8.5, "b", pw - 28), h = 26 + hl * 12 + 8 + idx.length * 19 + 8;
+        card(px, py, pw, h, fill);
+        txt(title.toUpperCase(), px + pw / 2, py + 22, 8.5, "b", tc, pw - 28, "center");
+        var ly = py + 22 + hl * 12 + 14; idx.forEach(function (i) { txt(W.areas[i].name, px + pw / 2, ly, 11, "b", INK, pw - 20, "center"); ly += 19; });
+        py += h + 12;
+      }
+      var sIdx = strong.slice(), wIdx = weak.slice();
+      if (sIdx.length) listPanel(U.strongCol, sIdx, SURF, INK);
+      if (wIdx.length) listPanel(U.weakCol, wIdx, SURF, INK);
+      y = Math.max(py, 134 + 252) + 24;
+      /* praise */
+      heading(U.praiseTitle);
+      var lead = strong.length ? U.praiseIntro(W.areas && praiseSet.slice(0, 3).map(function (i) { return LANG === "ru" ? "«" + W.areas[i].name + "»" : W.areas[i].name; }).join(", ")) : U.praiseNone(praiseSet.slice(0, 3).map(function (i) { return W.areas[i].name; }).join(", "));
+      y = txt(lead, M, y + 4, 10.5, "n", INK, CW) + 8;
+      var cw2 = (CW - 14) / 2, shown = praiseSet.slice(0, 4);
+      for (var r = 0; r < shown.length; r += 2) {
+        var pair = shown.slice(r, r + 2), rh = 0;
+        pair.forEach(function (i) { rh = Math.max(rh, hgt(PR[W.areas[i].key], 9.5, "n", cw2 - 30)); }); rh += 46;
+        ensure(rh + 12);
+        pair.forEach(function (i, k) { var a = W.areas[i], c = hex(a.color), cx = M + k * (cw2 + 14); card(cx, y, cw2, rh, SURF2); doc.setFillColor.apply(doc, c); doc.rect(cx, y, cw2, 4, "F"); txt(a.name, cx + 15, y + 26, 11, "h", INK); txt(PR[a.key], cx + 15, y + 42, 9.5, "n", MUTED, cw2 - 30); });
+        y += rh + 12;
+      }
+      /* balance */
+      y += 10; ensure(60 + 40 + 130); heading(U.balTitle);
+      y = txt(weak.length ? U.balIntro : U.balNone, M, y + 4, 10.5, "n", INK, CW) + 10;
+      var growSet = weak.length ? weak : [W.focus];
+      growSet.forEach(function (i) {
+        var a = W.areas[i], d = W.D[a.key], c = hex(a.color), lw2 = 186, rx = M + lw2 + 34, rw = CW - lw2 - 34 - 18;
+        var leftH = 66 + hgt(d.means, 9.5, "n", lw2), rightH = 40;
+        d.actions.forEach(function (x) { rightH += Math.max(hgt(x, 9.5, "n", rw - 20), 16) + 3; });
+        var tipT = d[W.lvl(W.scores[i])]; rightH += 4 + hgt(tipT, 8.5, "n", rw);
+        var h = Math.max(leftH, rightH) + 12; ensure(h + 12);
+        card(M, y, CW, h, WHITE, LINE); doc.setFillColor.apply(doc, c); doc.rect(M, y, 5, h, "F");
+        flowers(M + 20, y + 18, 13, W.scores[i], c);
+        txt(a.name, M + 20, y + 50, 12, "h", INK, lw2); txt(d.means, M + 20, y + 66, 9.5, "n", MUTED, lw2);
+        kicker(U.how, rx, y + 24, ACCD); var sy = y + 40;
+        d.actions.forEach(function (x) { doc.setDrawColor.apply(doc, c); doc.setLineWidth(1.3); doc.rect(rx, sy - 8, 10, 10, "S"); var e = txt(x, rx + 18, sy, 9.5, "n", INK, rw - 20); sy = Math.max(e, sy + 16) + 3; });
+        txt(tipT, rx, sy + 4, 8.5, "n", MUTED, rw);
+        y += h + 12;
+      });
+      /* GROW */
+      var f = W.areas[growSet[0]];
+      y += 8; ensure(60 + 104 + 24); heading(T.growTitle); y = txt(T.pGrowSub, M, y + 4, 10, "hi", MUTED, CW) + 10;
+      var gw = (CW - 14) / 2, gh = 104;
+      for (var gr = 0; gr < 4; gr += 2) {
+        ensure(gh + 14);
+        [0, 1].forEach(function (k) { var q = W.questions[gr + k], gx = M + k * (gw + 14); card(gx, y, gw, gh, WHITE, LINE); doc.setFillColor.apply(doc, SURF); doc.rect(gx, y, 28, 28, "F"); txt(q[0].charAt(0), gx + 14, y + 20, 14, "h", INK, null, "center"); txt(q[0].toUpperCase(), gx + 38, y + 17, 8, "b", ACCD); var qe = txt(q[1], gx + 38, y + 30, 9.5, "n", INK, gw - 52); doc.setDrawColor(222, 196, 208); doc.setLineWidth(.6); for (var l = Math.max(qe + 10, y + 62); l < y + gh - 6; l += 18) doc.line(gx + 14, l, gx + gw - 14, l); });
+        y += gh + 14;
+      }
+      /* 30 days */
+      y += 6; ensure(60 + 100); heading(T.planTitle);
+      var tw = (CW - 30) / 4, th = 0; W.plan.forEach(function (p) { th = Math.max(th, hgt(p[1], 9, "n", tw - 24)); }); th += 62; ensure(th + 12);
+      var tcols = [SURF2, SURF, SURF2, SURF];
+      W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tcols[i]); txt(p[0], tx + 12, y + 26, 12, "h", INK); txt(p[1], tx + 12, y + 44, 9, "n", INK, tw - 24); doc.setDrawColor.apply(doc, INK); doc.setLineWidth(1); doc.rect(tx + tw - 24, y + 12, 11, 11, "S"); });
+      y += th + 18;
+      /* offer */
+      var ot = plain(U.offT), oh2 = 26 + hgt(ot, 13, "h", CW - 44) + hgt(U.offP, 9.5, "n", CW - 44) + 22 + hgt(U.offAvail, 9.5, "b", CW - 44) + 14;
+      ensure(oh2 + 10);
+      card(M, y, CW, oh2, INK); kicker(U.offK, M + 22, y + 22, SURF);
+      var oy = txt(ot, M + 22, y + 42, 13, "h", WHITE, CW - 44);
+      oy = txt(U.offP, M + 22, oy + 2, 9.5, "n", [243, 213, 225], CW - 44);
+      txt(U.offAvail, M + 22, oy + 6, 9.5, "b", SURF, CW - 44);
+      y += oh2 + 14;
+      /* notes + disclaimer */
+      font("n"); doc.setFontSize(7.5); var dExtra = (doc.splitTextToSize(T.disclaimer, CW).length - 1) * 10;
+      var nh = BOT - 22 - dExtra - y;
+      if (nh > 80) { card(M, y, CW, nh, WHITE, LINE); kicker(T.pNotes, M + 18, y + 22, ACCD); doc.setDrawColor(222, 196, 208); doc.setLineWidth(.6); for (var nl = y + 46; nl < y + nh - 10; nl += 22) doc.line(M + 18, nl, PW - M - 18, nl); }
+      txt(T.disclaimer, PW / 2, PH - 58 - dExtra + 6, 7.5, "n", MUTED, CW, "center");
+      /* footers on every page */
+      var NP = doc.getNumberOfPages();
+      for (var pg = 1; pg <= NP; pg++) { doc.setPage(pg); doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(.6); doc.line(M, PH - 38, PW - M, PH - 38); txt(T.pFooter, M, PH - 22, 8.5, "n", MUTED); txt(pg + " / " + NP, PW - M, PH - 22, 8.5, "n", MUTED, null, "right"); }
+      doc.save(T.file);
     }); });
   }
   document.addEventListener("click", function (e) { if (e.target.closest(".wq-pdf")) { e.preventDefault(); make(); } });
