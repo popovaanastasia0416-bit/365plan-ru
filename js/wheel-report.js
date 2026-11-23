@@ -108,33 +108,33 @@
   };
   var R2 = {
     en: {
-      tableTitle: "Your wheel at a glance", avg: "Average score",
+      tableTitle: "Your wheel *at a glance*", avg: "Average score",
       strongCol: "Strengths", strongRange: "6–10", weakCol: "Areas to grow", weakRange: "1–5",
       noneStrong: "No area above 5 yet, and that is okay: this is your starting point.", noneWeak: "No weak areas at all. Impressive!",
-      praiseTitle: "You are doing great",
+      praiseTitle: "You are doing *great*",
       praiseIntro: function (l) { return "Your strong foundation is " + l + ". That does not happen by chance: it is the result of your choices, effort and care. Take a moment to be proud of yourself."; },
       praiseNone: function (l) { return "You looked at your life honestly, and that is the bravest first step. Your strongest areas right now are " + l + ": they are your resources to build on."; },
-      balTitle: "Now let's bring balance",
+      balTitle: "Now let's bring *balance*",
       balIntro: "A wheel rolls smoothly only when it is round. These areas are not failures: they are where your biggest growth is waiting. Even +1 or +2 points here will make your whole life feel lighter.",
       balNone: "All your areas are above 5. To keep the balance, pick the lowest one and take it one point higher this month.",
       how: "How to start", and: " and ",
-      offK: "Make it easy", offT: "Our planners and checklists will do half the work",
+      offK: "Make it easy", offT: "Our planners and checklists will do *half the work*",
       offP: "Change sticks when it is written down. Our printable planners and checklists turn these steps into a simple routine: open, tick, see your progress.",
       offAvail: "Available now: the Debt Payoff Planner", offSoon: "Planners and checklists for the other areas are on the way.",
       offFinWeak: function (s) { return "Finances is one of your areas to grow (" + s + "). This planner was made exactly for that."; }
     },
     ru: {
-      tableTitle: "Ваше колесо с первого взгляда", avg: "Средний балл",
+      tableTitle: "Ваше колесо *с первого взгляда*", avg: "Средний балл",
       strongCol: "Сильные стороны", strongRange: "6–10", weakCol: "Зоны роста", weakRange: "1–5",
       noneStrong: "Пока ни одной сферы выше 5, и это нормально: это ваша точка старта.", noneWeak: "Слабых сфер нет. Впечатляет!",
-      praiseTitle: "Вы молодец, и вот почему",
+      praiseTitle: "Вы *молодец*, и вот почему",
       praiseIntro: function (l) { return "Ваш крепкий фундамент — " + l + ". Это не случайность, а результат ваших решений, усилий и заботы. Остановитесь на минуту и похвалите себя."; },
       praiseNone: function (l) { return "Вы честно посмотрели на свою жизнь, а это самый смелый первый шаг. Ваши самые сильные сферы сейчас — " + l + ": на них можно опираться."; },
-      balTitle: "Теперь — к балансу",
+      balTitle: "Теперь — к *балансу*",
       balIntro: "Колесо едет ровно, только когда оно круглое. Эти сферы — не провал, а место, где вас ждёт самый большой рост. Даже +1–2 балла здесь сделают всю жизнь легче.",
       balNone: "Все сферы выше 5. Чтобы сохранить баланс, выберите самую низкую и поднимите её на балл в этом месяце.",
       how: "С чего начать", and: " и ",
-      offK: "Проще вместе с нами", offT: "Наши планеры и чек-листы сделают половину работы",
+      offK: "Проще вместе с нами", offT: "Наши планеры и чек-листы сделают *половину работы*",
       offP: "Перемены держатся, когда они на бумаге. Планеры и чек-листы для печати превращают эти шаги в простую привычку: открыли, отметили, видите прогресс.",
       offAvail: "Уже доступен: планер «Закройте долги за 12 месяцев»", offSoon: "Планеры и чек-листы для других сфер уже готовятся.",
       offFinWeak: function (s) { return "Финансы — одна из ваших зон роста (" + s + "). Этот планер создан как раз для неё."; }
@@ -173,41 +173,95 @@
 
     var strong = byHigh.filter(function (i) { return scores[i] > 5; });
     var weak = byLow.filter(function (i) { return scores[i] <= 5; });
-    function row(i) { var a = areas[i]; return '<li><i style="background:' + a.color + '"></i><span>' + esc(a.name) + '</span><b>' + scores[i] + '</b></li>'; }
+    function em(t) { return esc(t).replace(/\*([^*]+)\*/g, '<em>$1</em>'); }
+    function row(i, k) { var a = areas[i]; return '<li style="--c:' + a.color + ';--d:' + (k * 70) + 'ms"><i></i><span>' + esc(a.name) + '</span><u><s style="width:' + scores[i] * 10 + '%"></s></u><b>' + scores[i] + '</b></li>'; }
     var circ = 2 * Math.PI * 52, pct = avg / 10;
     var h = '';
     /* 1. table */
-    h += '<div class="rp-tbl"><div class="rp-tbl-head"><div class="rp-gauge rp-gauge-s"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="11"/>';
-    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" stroke-linecap="butt" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
+    h += '<div class="rp-tbl rp-rv"><div class="rp-tbl-head"><div class="rp-gauge rp-gauge-s"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="11"/>';
+    h += '<circle class="rp-arc" cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" style="--len:' + (circ * pct).toFixed(1) + ';--circ:' + circ.toFixed(1) + '" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
     h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#A65CEB"/><stop offset="1" stop-color="#2B7FF2"/></linearGradient></defs></svg>';
-    h += '<div class="rp-gauge-n"><b>' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + esc(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
+    h += '<div class="rp-gauge-n"><b class="rp-count" data-to="' + avg.toFixed(1) + '">' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + em(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
     h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + ' <span>' + U.strongRange + '</span></p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
     h += '<div class="rp-col rp-col-w"><p class="rp-col-h">' + esc(U.weakCol) + ' <span>' + U.weakRange + '</span></p>' + (weak.length ? '<ul>' + weak.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneWeak) + '</p>') + '</div></div></div>';
+    /* ribbon */
+    var rib = areas.map(function (a) { return '<span style="color:' + a.color + '">' + esc(a.name) + '</span><i>✦</i>'; }).join('');
+    h += '<div class="rp-ribbon" aria-hidden="true"><div>' + rib + rib + '</div></div>';
     /* 2. praise */
     var praiseSet = strong.length ? strong : byHigh.slice(0, 2);
     var names = praiseSet.slice(0, 3).map(function (i) { return areas[i].name; });
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(U.praiseTitle) + ' ✦</h3><p class="rp-praise-lead">' + esc(strong.length ? U.praiseIntro(joinNames(names)) : U.praiseNone(joinNames(names))) + '</p><div class="rp-sgrid">';
-    praiseSet.forEach(function (i) { var a = areas[i]; h += '<div class="rp-scard" style="--c:' + a.color + '"><div class="rp-scard-top"><span>' + esc(a.name) + '</span><b>' + scores[i] + '</b></div><p>' + esc(PR[a.key]) + '</p></div>'; });
+    h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.praiseTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(strong.length ? U.praiseIntro(joinNames(names)) : U.praiseNone(joinNames(names))) + '</p><div class="rp-sgrid">';
+    praiseSet.forEach(function (i, k) { var a = areas[i]; h += '<div class="rp-scard rp-rv" style="--c:' + a.color + ';--d:' + (k % 3) * 90 + 'ms"><span class="rp-big" aria-hidden="true">' + scores[i] + '</span><div class="rp-scard-top"><span>' + esc(a.name) + '</span></div><p>' + esc(PR[a.key]) + '</p></div>'; });
     h += '</div></div>';
-    /* 3. balance: areas to grow */
-    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(U.balTitle) + '</h3><p class="rp-praise-lead">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
+    /* 3. balance */
+    h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.balTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
     var growSet = weak.length ? weak : [byLow[0]];
     h += '<div class="rp-wlist">';
-    growSet.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-wcard" style="--c:' + a.color + '"><div class="rp-wcard-l"><span class="rp-wscore">' + scores[i] + '</span><h4>' + esc(a.name) + '</h4><p>' + esc(d.means) + '</p></div><div class="rp-wcard-r"><p class="rp-k">' + esc(U.how) + '</p><ul class="rp-check">' + d.actions.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul><p class="rp-tipline">' + esc(d[lvl(scores[i])]) + '</p></div></div>'; });
+    growSet.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-wcard rp-rv" style="--c:' + a.color + '"><div class="rp-wcard-l"><span class="rp-wscore">' + scores[i] + '</span><h4>' + esc(a.name) + '</h4><p>' + esc(d.means) + '</p></div><div class="rp-wcard-r"><p class="rp-k">' + esc(U.how) + '</p><ul class="rp-check">' + d.actions.map(function (x, n) { return '<li role="checkbox" tabindex="0" aria-checked="false" data-ck="' + a.key + n + '"><span class="rp-box"><svg viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9"/></svg></span>' + esc(x) + '</li>'; }).join('') + '</ul><p class="rp-tipline">' + esc(d[lvl(scores[i])]) + '</p></div></div>'; });
     h += '</div></div>';
-    /* 4. planners and checklists */
+    /* 4. offer */
     var finWeak = weak.some(function (i) { return areas[i].key === "finances"; });
     var fs2 = scores[areas.map(function (a) { return a.key; }).indexOf("finances")];
-    h += '<div class="rp-offer"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
-    h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + esc(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
+    h += '<div class="rp-offer rp-rv"><i class="rp-tw rp-tw1">✦</i><i class="rp-tw rp-tw2">✦</i><i class="rp-tw rp-tw3">✦</i><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
+    h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + em(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
     h += '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>' + (finWeak ? '<p class="rp-offer-p">' + esc(U.offFinWeak(fs2)) + '</p>' : '');
     h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-    h += '<a class="rp-buy" href="' + T.offerHref + '">' + esc(T.offerBtn) + '</a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
+    h += '<a class="rp-buy" href="' + T.offerHref + '"><span>' + esc(T.offerBtn) + '</span></a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
     /* gift */
-    h += '<div class="rp-gift"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
+    h += '<div class="rp-gift rp-rv"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
     h += '<p class="rp-note">' + esc(T.disclaimer) + '</p>';
-    box.innerHTML = h; box.hidden = false;
+    box.innerHTML = h; box.hidden = false; rpAnimate(box);
   };
+
+
+  /* ---------------- motion ---------------- */
+  var CK_KEY = "my365-checks";
+  function ckLoad() { try { return JSON.parse(localStorage.getItem(CK_KEY) || "{}"); } catch (e) { return {}; } }
+  function ckSave(o) { try { localStorage.setItem(CK_KEY, JSON.stringify(o)); } catch (e) {} }
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var partyDone = false;
+  function confetti(x, y) {
+    if (still) return;
+    var cols = ["#FF5A4E", "#FF9418", "#F2BE1A", "#7DCB34", "#1FC9BC", "#2B7FF2", "#7A47CF", "#A65CEB", "#FF4F9E"];
+    var cv = document.createElement("canvas"); cv.className = "rp-confetti"; document.body.appendChild(cv);
+    var W = cv.width = innerWidth, H = cv.height = innerHeight, ctx = cv.getContext("2d"), P = [];
+    for (var i = 0; i < 130; i++) { var ang = Math.random() * Math.PI * 2, sp = 4 + Math.random() * 9; P.push({x: x, y: y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 6, s: 5 + Math.random() * 7, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: cols[i % cols.length], sq: Math.random() < .6}); }
+    var t0 = performance.now();
+    (function tick(t) {
+      var k = (t - t0) / 1000; ctx.clearRect(0, 0, W, H);
+      P.forEach(function (p) { p.vy += .32; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.max(0, 1 - k / 2.6); ctx.fillStyle = p.c; if (p.sq) ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); else { ctx.font = (p.s * 2.2) + "px serif"; ctx.fillText("✦", -p.s, p.s); } ctx.restore(); });
+      if (k < 2.6) requestAnimationFrame(tick); else cv.remove();
+    })(t0);
+  }
+  function countUp(el) {
+    var to = parseFloat(el.dataset.to), t0 = performance.now(), D = 1300;
+    (function step(t) { var k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = num(to * e); if (k < 1) requestAnimationFrame(step); })(t0);
+  }
+  function rpAnimate(box) {
+    var ck = ckLoad();
+    box.querySelectorAll(".rp-check li").forEach(function (li) {
+      if (ck[li.dataset.ck]) { li.classList.add("done"); li.setAttribute("aria-checked", "true"); }
+      function tog() {
+        var on = !li.classList.contains("done"); li.classList.toggle("done", on); li.setAttribute("aria-checked", on ? "true" : "false");
+        var o = ckLoad(); if (on) o[li.dataset.ck] = 1; else delete o[li.dataset.ck]; ckSave(o);
+        if (on) { li.classList.remove("pop"); void li.offsetWidth; li.classList.add("pop"); }
+      }
+      li.addEventListener("click", tog);
+      li.addEventListener("keydown", function (e) { if (e.key === " " || e.key === "Enter") { e.preventDefault(); tog(); } });
+    });
+    if (still || !("IntersectionObserver" in window)) return;
+    box.classList.add("rp-anim");
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return; var el = en.target; el.classList.add("in"); io.unobserve(el);
+        if (el.classList.contains("rp-tbl")) {
+          var c = el.querySelector(".rp-count"); if (c) countUp(c);
+          if (!partyDone) { partyDone = true; var g = el.querySelector(".rp-gauge").getBoundingClientRect(); setTimeout(function () { confetti(g.left + g.width / 2, g.top + g.height / 2); }, 500); }
+        }
+      });
+    }, {threshold: .18});
+    box.querySelectorAll(".rp-rv").forEach(function (el) { io.observe(el); });
+  }
 
   /* ---------------- PDF ---------------- */
   function wheelImage(cb) {

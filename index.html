@@ -272,6 +272,63 @@ dialog#look .x{position:absolute;right:12px;top:6px;border:0;background:none;fon
   .rp-wcard{gap:12px;padding:22px 20px}
   .rp-praise-lead{font-size:19px}
 }
+/* ===== wow layer ===== */
+.wq-report em{font-style:italic;font-weight:500;background:linear-gradient(90deg,#FF4F9E,#A65CEB 55%,#2B7FF2);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.rp-offer em{background:linear-gradient(90deg,#FFC6E0,#fff 50%,#CFE0FF);-webkit-background-clip:text;background-clip:text}
+.rp-h{font-size:clamp(32px,3.6vw,46px)}
+.rp-tbl{background-size:220% 220%,220% 220%,auto;animation:rpbg 16s ease-in-out infinite alternate}
+@keyframes rpbg{to{background-position:100% 60%,0% 40%,0 0}}
+.rp-col li{display:grid;grid-template-columns:11px minmax(0,1fr) 70px 26px;gap:12px}
+.rp-col li i{background:var(--c)}
+.rp-col li u{display:block;height:6px;background:#f1edf4;overflow:hidden}
+.rp-col li u s{display:block;height:100%;background:var(--c);transform-origin:left}
+.rp-col li b{text-align:right}
+.rp-ribbon{width:100vw;margin:60px 0 0 calc(50% - 50vw);overflow:hidden;padding:16px 0;background:#fff;border-top:1px solid #f0eaf3;border-bottom:1px solid #f0eaf3}
+.rp-ribbon div{display:flex;align-items:center;gap:26px;width:max-content;animation:rpmq 46s linear infinite}
+.rp-ribbon span{font-size:36px;font-style:italic;font-weight:500;white-space:nowrap}
+.rp-ribbon i{font-style:normal;color:#d8cfe0;font-size:18px}
+@keyframes rpmq{to{transform:translateX(-50%)}}
+.rp-scard{position:relative;overflow:hidden;min-height:150px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.rp-scard:hover{transform:translateY(-4px);box-shadow:8px 8px 0 color-mix(in srgb,var(--c) 30%,#fff)}
+.rp-big{position:absolute;right:-4px;bottom:-40px;font-size:150px;font-weight:600;line-height:1;color:var(--c);opacity:.2;pointer-events:none}
+.rp-scard-top,.rp-scard p{position:relative;padding-right:56px}
+.rp-wcard{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.rp-wcard:hover{transform:translateY(-3px);box-shadow:8px 8px 0 color-mix(in srgb,var(--c) 22%,#fff)}
+.rp-check li{cursor:pointer;padding-left:36px;transition:color .3s;outline:none}
+.rp-check li::before{display:none}
+.rp-box{position:absolute;left:0;top:1px;width:22px;height:22px;border:2px solid var(--c);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.rp-box svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:square;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .05s}
+.rp-check li:hover .rp-box,.rp-check li:focus-visible .rp-box{background:color-mix(in srgb,var(--c) 18%,#fff)}
+.rp-check li.done{color:#9a94a2;text-decoration:line-through;text-decoration-color:var(--c)}
+.rp-check li.done .rp-box{background:var(--c)}
+.rp-check li.done .rp-box svg{stroke-dashoffset:0}
+.rp-check li.pop .rp-box{animation:rppop .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes rppop{40%{transform:scale(1.28)}}
+.rp-offer{position:relative;overflow:hidden;background-size:200% 200%;animation:rpbg2 12s ease-in-out infinite alternate}
+@keyframes rpbg2{to{background-position:100% 100%}}
+.rp-offer-img img{animation:rpfloat 6s ease-in-out infinite}
+@keyframes rpfloat{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-1.5deg) translateY(-12px)}}
+.rp-tw{position:absolute;font-style:normal;color:#FFC6E0;animation:rptw 3s ease-in-out infinite;pointer-events:none}
+.rp-tw1{left:28px;top:22px;font-size:26px}.rp-tw2{right:44px;top:34px;font-size:18px;animation-delay:1s}.rp-tw3{right:30%;bottom:26px;font-size:22px;animation-delay:2s}
+@keyframes rptw{0%,100%{opacity:.25;transform:scale(.6)}50%{opacity:1;transform:scale(1.15) rotate(25deg)}}
+.rp-buy{position:relative;overflow:hidden}
+.rp-buy span{position:relative;z-index:1}
+.rp-buy::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,170,210,.75),transparent);animation:rpsh 3.4s ease-in-out infinite}
+@keyframes rpsh{55%,100%{left:130%}}
+.rp-dl{transition:transform .2s}.rp-dl:hover{transform:translateY(-2px)}
+.rp-confetti{position:fixed;inset:0;pointer-events:none;z-index:99}
+/* reveal (only when JS + motion allowed) */
+.rp-anim .rp-rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease var(--d,0ms),transform .9s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.rp-anim .rp-rv.in{opacity:1;transform:none}
+.rp-anim .rp-scard.rp-rv.in:hover{transform:translateY(-4px);transition-delay:0ms}
+.rp-anim .rp-tbl li{opacity:0;transform:translateX(-14px);transition:opacity .5s ease calc(var(--d) + 350ms),transform .6s cubic-bezier(.2,.8,.2,1) calc(var(--d) + 350ms)}
+.rp-anim .rp-tbl.in li{opacity:1;transform:none}
+.rp-anim .rp-tbl li u s{transform:scaleX(0);transition:transform 1s cubic-bezier(.2,.8,.2,1) calc(var(--d) + 550ms)}
+.rp-anim .rp-tbl.in li u s{transform:scaleX(1)}
+.rp-anim .rp-arc{stroke-dasharray:0 var(--circ);transition:stroke-dasharray 1.3s cubic-bezier(.3,.7,.2,1) .15s}
+.rp-anim .rp-tbl.in .rp-arc{stroke-dasharray:var(--len) var(--circ)}
+@media (max-width:860px){.rp-ribbon span{font-size:28px}.rp-col li{grid-template-columns:11px minmax(0,1fr) 50px 22px}.rp-big{font-size:120px;bottom:-30px}}
+@media (prefers-reduced-motion:reduce){.rp-tbl,.rp-offer,.rp-ribbon div,.rp-offer-img img,.rp-tw,.rp-buy::after{animation:none}}
 @media (max-width:860px){
   .rp-hero{grid-template-columns:1fr;justify-items:center;text-align:center;padding:30px 22px;gap:18px}
   .rp-gauge{width:160px;height:160px}.rp-gauge-n b{font-size:50px}
