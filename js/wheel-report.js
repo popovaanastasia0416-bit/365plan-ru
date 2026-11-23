@@ -64,7 +64,7 @@
       pStep: " Step: ", pGrowSub: "The GROW coaching model. Write your answers on the lines.", pKeep: "Keep going", pNotes: "My notes", pFooter: "my365plan  ·  My Wheel of Life",
       pStrengthsText: function (a, b) { return a + " and " + b + ". Lean on what already works to lift your focus area."; },
       file: "my-wheel-of-life.pdf", locale: "en-US", rateFirst: "Please rate all 9 areas first.",
-      bodyFont: ["fonts/manrope-500.ttf", "fonts/manrope-700.ttf"]
+      bodyFont: ["fonts/jost-500.ttf", "fonts/jost-700.ttf"]
     },
     ru: {
       archetypes: {
@@ -96,7 +96,7 @@
       pStep: " Шаг: ", pGrowSub: "Модель GROW. Запишите ответы на линиях.", pKeep: "Продолжайте", pNotes: "Мои заметки", pFooter: "my365plan  ·  Моё колесо баланса",
       pStrengthsText: function (a, b) { return a + " и " + b + ". Опирайтесь на то, что уже работает, чтобы подтянуть сферу фокуса."; },
       file: "moe-koleso-balansa.pdf", locale: "ru-RU", rateFirst: "Сначала оцените все 9 сфер.",
-      bodyFont: ["fonts/manrope-500.ttf", "fonts/manrope-700.ttf"]
+      bodyFont: ["fonts/jost-500.ttf", "fonts/jost-700.ttf"]
     }
   };
   function plural(n, one, few, many) { n = Math.abs(n) % 100; var n1 = n % 10; if (n > 10 && n < 20) return many; if (n1 > 1 && n1 < 5) return few; if (n1 === 1) return one; return many; }
@@ -276,7 +276,7 @@
   var FONTS = null;
   function loadFonts(cb) {
     if (FONTS !== null) return cb(FONTS);
-    var files = {corm: "fonts/manrope-800.ttf", cormi: "fonts/manrope-500.ttf", body: T.bodyFont[0], bodyb: T.bodyFont[1]}, out = {};
+    var files = {corm: "fonts/unbounded-700.ttf", cormi: "fonts/jost-500.ttf", body: T.bodyFont[0], bodyb: T.bodyFont[1]}, out = {};
     Promise.all(Object.keys(files).map(function (k) {
       return fetch(files[k]).then(function (r) { if (!r.ok) throw 0; return r.arrayBuffer(); }).then(function (b) {
         var u = new Uint8Array(b), s = ""; for (var i = 0; i < u.length; i += 8192) s += String.fromCharCode.apply(null, u.subarray(i, i + 8192)); out[k] = btoa(s);
@@ -299,7 +299,7 @@
       function dark(c) { return c.map(function (v) { return v * .6; }); }
       function font(kind) {
         if (!F) { doc.setFont("helvetica", kind === "b" || kind === "h" ? "bold" : "normal"); return 1; }
-        if (kind === "h") { doc.setFont("Corm", "normal"); return 0.94; }
+        if (kind === "h") { doc.setFont("Corm", "normal"); return 0.74; }
         if (kind === "hi") { doc.setFont("CormI", "normal"); return 1; }
         doc.setFont("Body", kind === "b" ? "bold" : "normal"); return 1;
       }
