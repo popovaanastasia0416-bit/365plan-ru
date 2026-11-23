@@ -1,0 +1,283 @@
+/* Wheel of Life: results report + PDF, in English and Russian. Page sets window.LANG = "en" | "ru" before this file. */
+(function () {
+  var LANG = window.LANG === "ru" ? "ru" : "en";
+
+  var NAMES = {
+    en: {health: "Health", career: "Career", finances: "Finances", hobbies: "Hobbies", growth: "Personal growth", relationships: "Relationships", recreation: "Recreation", spirituality: "Spirituality", family: "Family"},
+    ru: {health: "Здоровье", career: "Карьера", finances: "Финансы", hobbies: "Хобби", growth: "Личностный рост", relationships: "Отношения", recreation: "Отдых", spirituality: "Духовность", family: "Семья"}
+  };
+
+  var D = {
+    en: {
+      health: {means: "Energy, sleep, movement and how you eat. When this area is low, every other area gets harder.", actions: ["Go to bed at the same time for 7 nights in a row.", "Add a 20-minute walk to three days this week.", "Plan tomorrow's meals tonight, even roughly."], low: "Start with sleep: it is the cheapest fix with the biggest effect.", mid: "Pick one habit (water, steps, bedtime) and track it daily.", high: "Protect your routine on busy weeks; everything else rests on it."},
+      career: {means: "Your work, growth and sense of progress. A low score usually means feeling stuck, not hating the job.", actions: ["Describe what a 10 at work would look like in one paragraph.", "Pick one skill to grow this quarter and book the first hour of learning.", "Have one conversation this week about your next step."], low: "Separate what you can change now from what needs a bigger move.", mid: "Set one 90-day goal with a clear finish line.", high: "Share what you know: mentoring keeps this area strong."},
+      finances: {means: "How in control you feel of money: debts, savings, spending. A low score is usually about uncertainty, not income.", actions: ["List every debt with its balance, rate and minimum payment.", "Write a simple monthly budget: income, must-pay bills, what is left.", "Start a tiny emergency fund, even $5 a week."], low: "Clarity first: seeing your exact numbers lowers stress on its own.", mid: "Pick one payoff method and automate one payment.", high: "Grow your cushion to 3 to 6 months of expenses and set a new goal."},
+      hobbies: {means: "The things you do just because you love them. They refill the energy the other areas use up.", actions: ["List 5 things you loved doing as a kid.", "Block one hour this week for one of them.", "Try one free class, video or local group."], low: "Treat fun as an appointment, not a reward for later.", mid: "Keep one hobby going weekly so it becomes a habit.", high: "Share it: a hobby with friends counts twice."},
+      growth: {means: "Learning, confidence and becoming who you want to be.", actions: ["Choose one book or course and give it 15 minutes a day.", "Write down three things you did well this week.", "Pick one small fear and do it once."], low: "Small daily progress beats big plans you never start.", mid: "Track one learning habit for 30 days.", high: "Set a stretch goal that scares you a little."},
+      relationships: {means: "Your partner and friends: how connected and supported you feel.", actions: ["Message two people you miss today.", "Plan one evening together with no phones.", "Ask someone close: what is one thing I could do better for you?"], low: "Reach out first: most people are waiting for someone else to.", mid: "Put regular time with your people in the calendar.", high: "Be the one who brings people together."},
+      recreation: {means: "Rest and recovery: time off, trips, real breaks.", actions: ["Put one fully free evening in your calendar this week.", "Plan a day trip or a small treat for this month.", "Turn off work notifications after a set hour."], low: "Rest is not a reward for finishing everything: schedule it first.", mid: "Plan your next real break now, even a short one.", high: "Keep your boundaries when life speeds up."},
+      spirituality: {means: "Inner calm, meaning and values, whatever that means for you.", actions: ["Spend 5 quiet minutes each morning: journaling, prayer or breathing.", "Write down your top 3 values and check one decision against them.", "Spend time in nature this week."], low: "Start with five quiet minutes a day: consistency beats length.", mid: "Link a daily practice to something you already do, like morning coffee.", high: "Use this calm as an anchor for the shakier areas."},
+      family: {means: "Your relationships with parents, siblings and children.", actions: ["Plan one shared meal or call this week.", "Start a shared family calendar for the busy days.", "Ask each family member what would make home feel easier."], low: "One small ritual, like a Sunday call, rebuilds closeness.", mid: "Plan family time ahead instead of fitting it in.", high: "Share the load so home stays good for everyone."}
+    },
+    ru: {
+      health: {means: "Энергия, сон, движение и питание. Когда здесь проседает, всё остальное даётся тяжелее.", actions: ["Ложитесь спать в одно и то же время 7 дней подряд.", "Добавьте 20-минутную прогулку в три дня этой недели.", "Вечером набросайте меню на завтра, хотя бы примерно."], low: "Начните со сна: это самый простой шаг с самым большим эффектом.", mid: "Выберите одну привычку (вода, шаги, отбой) и отмечайте её каждый день.", high: "Берегите режим в загруженные недели: на нём держится всё остальное."},
+      career: {means: "Работа, рост и ощущение движения вперёд. Низкая оценка чаще говорит о чувстве застоя, а не о самой работе.", actions: ["Опишите одним абзацем, как выглядела бы работа на 10 из 10.", "Выберите один навык на этот квартал и запланируйте первый час обучения.", "На этой неделе поговорите о следующем шаге с руководителем, наставником или другом."], low: "Разделите, что можно изменить уже сейчас, а что требует большого шага.", mid: "Поставьте одну цель на 90 дней с понятным финишем.", high: "Делитесь опытом: наставничество держит эту сферу сильной."},
+      finances: {means: "Насколько вы управляете деньгами: долги, накопления, траты. Низкая оценка чаще про неопределённость, чем про маленький доход.", actions: ["Выпишите все долги: остаток, ставку и минимальный платёж.", "Составьте простой бюджет на месяц: доходы, обязательные платежи, остаток.", "Начните подушку безопасности, даже по 500 ₽ в неделю."], low: "Сначала ясность: когда видишь точные цифры, тревоги становится меньше.", mid: "Выберите метод погашения и настройте автоплатёж.", high: "Доведите подушку до 3–6 месяцев расходов и поставьте новую цель."},
+      hobbies: {means: "То, что вы делаете просто ради удовольствия. Хобби восполняет энергию, которую забирают другие сферы.", actions: ["Вспомните 5 занятий, которые вы любили в детстве.", "Выделите на одно из них час на этой неделе.", "Попробуйте один бесплатный урок, видео или встречу по интересам."], low: "Относитесь к радости как к встрече в календаре, а не к награде «потом».", mid: "Оставьте одно хобби раз в неделю, чтобы оно стало привычкой.", high: "Делитесь им: хобби с друзьями радует вдвойне."},
+      growth: {means: "Обучение, уверенность в себе и движение к тому, кем вы хотите быть.", actions: ["Выберите одну книгу или курс и уделяйте им 15 минут в день.", "Запишите три вещи, которые у вас получились на этой неделе.", "Выберите один небольшой страх и сделайте это один раз."], low: "Маленький шаг каждый день лучше больших планов, которые не начинаются.", mid: "Отмечайте одну привычку обучения 30 дней подряд.", high: "Поставьте цель на вырост, от которой немного страшно."},
+      relationships: {means: "Партнёр и друзья: насколько вы чувствуете близость и поддержку.", actions: ["Напишите сегодня двум людям, по которым скучаете.", "Запланируйте вечер вместе без телефонов.", "Спросите близкого: что я могу делать для тебя лучше?"], low: "Сделайте первый шаг: многие тоже ждут, что напишут им.", mid: "Внесите встречи с близкими в календарь регулярно.", high: "Будьте тем, кто собирает людей вместе."},
+      recreation: {means: "Отдых и восстановление: выходные, поездки, настоящие перерывы.", actions: ["Поставьте в календарь один полностью свободный вечер на этой неделе.", "Запланируйте поездку на день или маленькую радость в этом месяце.", "Отключайте рабочие уведомления после определённого часа."], low: "Отдых не награда за то, что всё сделано: ставьте его в план первым.", mid: "Запланируйте следующий настоящий отдых уже сейчас, пусть даже короткий.", high: "Сохраняйте свои границы, даже когда жизнь ускоряется."},
+      spirituality: {means: "Внутреннее спокойствие, смысл и ценности, что бы это ни значило для вас.", actions: ["Каждое утро 5 минут тишины: дневник, молитва или дыхание.", "Запишите три главные ценности и сверьте с ними одно решение.", "Проведите время на природе на этой неделе."], low: "Начните с пяти минут тишины в день: важнее регулярность, чем длительность.", mid: "Привяжите практику к тому, что вы и так делаете, например к утреннему кофе.", high: "Опирайтесь на это спокойствие там, где пока шатко."},
+      family: {means: "Отношения с родителями, братьями, сёстрами и детьми.", actions: ["Запланируйте общий ужин или звонок на этой неделе.", "Заведите общий семейный календарь для загруженных дней.", "Спросите каждого в семье, что сделало бы дом легче."], low: "Один маленький ритуал, например звонок по воскресеньям, возвращает близость.", mid: "Планируйте семейное время заранее, а не по остаточному принципу.", high: "Делите нагрузку, чтобы дома было хорошо всем."}
+    }
+  };
+
+  var S = {
+    en: {
+      archetypes: {
+        balancedHigh: ["The Balanced Achiever", "Your life is in good shape across the board. Your next step is not fixing, it is growing: take one area from good to great."],
+        blindSpot: ["Strong, with One Blind Spot", "You do great in most areas, but one is quietly pulling you back. Give it a little attention and the whole wheel will feel lighter."],
+        lift: ["Ready for a Lift", "Your wheel is even, just not as full as you would like yet. Small, steady habits will lift every area at once."],
+        reset: ["Time for a Reset", "Some areas are strong, others are running on empty. That is very common, and the fix is simpler than it feels: start with your lowest area."]
+      },
+      yourResult: "Your result", balance: "Balance score", of10: "out of 10",
+      strongest: "Strongest", focusChip: "Focus", gap: "Balance gap", gapText: function (g) { return g + " points between your highest and lowest area"; },
+      strengths: "Your strengths", strengthsText: "Lean on these: what already works can lift your focus area. If Relationships is strong, ask a friend to keep you accountable.",
+      startWith: "Start with", tieNote: function (n) { return "Several areas share this score. " + n + " comes first because progress here tends to lift the others."; },
+      firstWeek: "Your first week", firstWeekSub: "Three small steps. Small is the point: they are easy to start and hard to drop.",
+      alsoTitle: "Also worth attention", alsoNote: "Coaches recommend one area at a time. Come back to these once your first step is a habit.", oneStep: "One step: ",
+      growTitle: "Questions coaches ask", growSub: "The GROW model: Goal, Reality, Options, Will. Answer them in your head or on paper.",
+      questions: function (n, s, nx) { return [["Goal", "What would a 10 in " + n + " look like for you? One sentence."], ["Reality", "Why is it a " + s + " and not lower? What is already working?"], ["Options", "What would move it from " + s + " to " + nx + "? List three ideas, even small ones."], ["Will", "Which one will you do this week, and when exactly?"]]; },
+      planTitle: "Your 30-day plan", plan: [["Week 1", "Answer the four questions and take the first small step."], ["Week 2", "Turn the step into a habit: same day, same time."], ["Week 3", "Add the second step and keep the first one going."], ["Week 4", "Retake the wheel and compare. Even +1 is real progress."]],
+      allTitle: "All your areas",
+      offerKicker: "Made for your focus area",
+      offerFin: function (s) { return "Turn your " + s + " in Finances into a clear plan"; },
+      offerOther: function (n) { return "A planner for " + n + " is on its way"; },
+      offerOtherText: "Meanwhile, most people start with money: money stress touches every area of the wheel.",
+      offerList: ["a debt list with monthly interest and a filled-in example", "a monthly budget with ready categories", "2 proven debt payoff methods", "a savings tracker that makes your emergency fund fun", "23 pages: plan your next 12 months"],
+      offerBtn: "Get the Debt Payoff Planner · $5", offerNote: "Instant PDF download · 23 pages · 3 colors", offerHref: "planners.html#planners",
+      giftKicker: "Free for you", giftTitle: "Your wheel, ready to print", giftText: "3 beautiful pages: your wheel, your plan for the month and a 30-day tracker.",
+      download: "Download my wheel (PDF)", startOver: "Start over",
+      disclaimer: "Based on the classic Wheel of Life coaching exercise and the GROW coaching model. General guidance, not professional advice.",
+      /* pdf */
+      pTitle: "My Wheel of Life", pSub: "A snapshot of your life, area by area", pScores: "Your scores", pSays: "What your wheel says", pFocusKicker: "Your focus area", pPlanFor: "Your plan for ", pSmall: "Small steps, one area at a time.", pSteps: "3 small steps for this week",
+      pStep: " Step: ", pGrowSub: "The GROW coaching model. Write your answers on the lines.", pKeep: "Keep going", pNotes: "My notes", pFooter: "my365plan  ·  My Wheel of Life",
+      pStrengthsText: function (a, b) { return a + " and " + b + ". Lean on what already works to lift your focus area."; },
+      file: "my-wheel-of-life.pdf", locale: "en-US", rateFirst: "Please rate all 9 areas first.",
+      bodyFont: ["fonts/lato-400.ttf", "fonts/lato-700.ttf"]
+    },
+    ru: {
+      archetypes: {
+        balancedHigh: ["Гармония", "Почти все сферы вашей жизни в хорошей форме. Следующий шаг не исправлять, а расти: выберите одну сферу и сделайте её из хорошей отличной."],
+        blindSpot: ["Сильная, но с одним слабым звеном", "Почти во всём у вас получается, но одна сфера тихо тянет назад. Немного внимания к ней, и всё колесо станет легче."],
+        lift: ["Готовы к подъёму", "Колесо ровное, но пока не такое наполненное, как хочется. Маленькие регулярные привычки поднимут все сферы сразу."],
+        reset: ["Время перезагрузки", "Одни сферы сильные, другие на нуле. Так бывает почти у всех, и решение проще, чем кажется: начните с самой слабой сферы."]
+      },
+      yourResult: "Ваш результат", balance: "Баланс жизни", of10: "из 10",
+      strongest: "Сильнее всего", focusChip: "Фокус", gap: "Разрыв", gapText: function (g) { return g + " " + plural(g, "балл", "балла", "баллов") + " между самой сильной и самой слабой сферой"; },
+      strengths: "Ваши опоры", strengthsText: "Опирайтесь на то, что уже работает: это поможет подтянуть слабую сферу. Например, если сильны отношения, попросите подругу поддерживать вас.",
+      startWith: "Начните с", tieNote: function (n) { return "У нескольких сфер одинаковая оценка. Мы поставили первой «" + n + "»: изменения здесь обычно подтягивают и остальное."; },
+      firstWeek: "Ваша первая неделя", firstWeekSub: "Три маленьких шага. Маленьких специально: их легко начать и сложно бросить.",
+      alsoTitle: "Тоже стоит внимания", alsoNote: "Коучи советуют работать с одной сферой за раз. Вернитесь к этим, когда первый шаг станет привычкой.", oneStep: "Один шаг: ",
+      growTitle: "Вопросы, которые задают коучи", growSub: "Модель GROW: цель, реальность, варианты, действие. Ответьте мысленно или на бумаге.",
+      questions: function (n, s, nx) { return [["Цель", "Какой была бы сфера «" + n + "» на 10 из 10? Одним предложением."], ["Реальность", "Почему сейчас " + s + ", а не меньше? Что уже работает?"], ["Варианты", "Что поднимет оценку с " + s + " до " + nx + "? Запишите три идеи, даже маленькие."], ["Действие", "Что из этого вы сделаете на этой неделе и когда именно?"]]; },
+      planTitle: "План на 30 дней", plan: [["Неделя 1", "Ответьте на четыре вопроса и сделайте первый маленький шаг."], ["Неделя 2", "Превратите шаг в привычку: тот же день, то же время."], ["Неделя 3", "Добавьте второй шаг и не бросайте первый."], ["Неделя 4", "Пройдите колесо заново и сравните. Даже +1 — это настоящий прогресс."]],
+      allTitle: "Все ваши сферы",
+      offerKicker: "Создано для вашей сферы фокуса",
+      offerFin: function (s) { return "Превратите свои " + s + " " + plural(s, "балл", "балла", "баллов") + " в «Финансах» в понятный план"; },
+      offerOther: function (n) { return "Планер для сферы «" + n + "» уже в работе"; },
+      offerOtherText: "А пока многие начинают с денег: финансовая тревога влияет на каждую сферу колеса.",
+      offerList: ["список долгов с процентами в месяц и примером заполнения", "бюджет на месяц с готовыми статьями", "2 рабочих метода погашения долгов", "трекер подушки безопасности: копить становится игрой", "23 страницы: план на 12 месяцев вперёд"],
+      offerBtn: "Получить планер · 390 ₽", offerNote: "PDF сразу после оплаты · 23 страницы · 3 цвета", offerHref: "planners.html#planners",
+      giftKicker: "Подарок для вас", giftTitle: "Ваше колесо, готовое к печати", giftText: "3 красивые страницы: ваше колесо, план на месяц и трекер на 30 дней.",
+      download: "Скачать моё колесо (PDF)", startOver: "Пройти заново",
+      disclaimer: "По мотивам классического коучингового упражнения «Колесо баланса» и модели GROW. Общие рекомендации, не профессиональная консультация.",
+      pTitle: "Моё колесо баланса", pSub: "Ваша жизнь сферу за сферой", pScores: "Ваши оценки", pSays: "Что говорит ваше колесо", pFocusKicker: "Ваша сфера фокуса", pPlanFor: "План для сферы ", pSmall: "Маленькие шаги, одна сфера за раз.", pSteps: "3 маленьких шага на эту неделю",
+      pStep: " Шаг: ", pGrowSub: "Модель GROW. Запишите ответы на линиях.", pKeep: "Продолжайте", pNotes: "Мои заметки", pFooter: "my365plan  ·  Моё колесо баланса",
+      pStrengthsText: function (a, b) { return a + " и " + b + ". Опирайтесь на то, что уже работает, чтобы подтянуть сферу фокуса."; },
+      file: "moe-koleso-balansa.pdf", locale: "ru-RU", rateFirst: "Сначала оцените все 9 сфер.",
+      bodyFont: ["fonts/nunito-400.ttf", "fonts/nunito-700.ttf"]
+    }
+  };
+  function plural(n, one, few, many) { n = Math.abs(n) % 100; var n1 = n % 10; if (n > 10 && n < 20) return many; if (n1 > 1 && n1 < 5) return few; if (n1 === 1) return one; return many; }
+  var T = S[LANG], DL = D[LANG];
+  window.WL = {names: NAMES[LANG], lang: LANG};
+
+  function lvl(s) { return s <= 4 ? "low" : s <= 7 ? "mid" : "high"; }
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
+  function num(x) { var s = x.toFixed(1); return LANG === "ru" ? s.replace(".", ",") : s; }
+  var KEY = ["finances", "health", "relationships", "career", "family", "growth", "recreation", "spirituality", "hobbies"];
+
+  window.buildWheelReport = function (areas, scores) {
+    var box = document.getElementById("wq-report"); if (!box) return;
+    areas.forEach(function (a) { a.name = NAMES[LANG][a.key] || a.name; });
+    var idx = areas.map(function (a, i) { return i; });
+    function rank(i) { return KEY.indexOf(areas[i].key); }
+    var byLow = idx.slice().sort(function (x, y) { return scores[x] - scores[y] || rank(x) - rank(y); });
+    var byHigh = idx.slice().sort(function (x, y) { return scores[y] - scores[x] || rank(x) - rank(y); });
+    var avg = scores.reduce(function (s, v) { return s + v; }, 0) / scores.length;
+    var spread = scores[byHigh[0]] - scores[byLow[0]];
+    var arch = avg >= 7 ? (spread <= 3 ? "balancedHigh" : "blindSpot") : (spread <= 3 ? "lift" : "reset");
+    var A = T.archetypes[arch];
+    var fi = byLow[0], focus = areas[fi], fs = scores[fi], fd = DL[focus.key];
+    var tie = byLow.filter(function (i) { return scores[i] === fs; }).length > 1;
+    var others = byLow.slice(1).filter(function (i) { return scores[i] <= 4; }).slice(0, 2);
+    if (!others.length && scores[byLow[1]] < scores[byHigh[0]]) others = [byLow[1]];
+    var s1 = areas[byHigh[0]], s2 = areas[byHigh[1]];
+    var nx = Math.min(10, fs + 1);
+    var questions = T.questions(focus.name, fs, nx);
+    window.__wheelData = {areas: areas, scores: scores.slice(), avg: avg, shape: A[0] + ". " + A[1], arch: A, focus: fi, others: others,
+      strengths: [byHigh[0], byHigh[1]], tie: tie, D: DL, lvl: lvl, questions: questions, plan: T.plan};
+
+    var circ = 2 * Math.PI * 52, pct = avg / 10;
+    var h = '';
+    /* hero */
+    h += '<div class="rp-hero"><div class="rp-gauge"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="10"/>';
+    h += '<circle cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
+    h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#A65CEB"/><stop offset="1" stop-color="#2B7FF2"/></linearGradient></defs></svg>';
+    h += '<div class="rp-gauge-n"><b>' + num(avg) + '</b><span>' + esc(T.of10) + '</span></div></div>';
+    h += '<div class="rp-hero-t"><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + esc(A[0]) + '</h2><p class="rp-lead">' + esc(A[1]) + '</p>';
+    h += '<div class="rp-chips"><span class="rp-chip"><i style="background:' + s1.color + '"></i>' + esc(T.strongest) + ': ' + esc(s1.name) + ' · ' + scores[byHigh[0]] + '</span>';
+    h += '<span class="rp-chip"><i style="background:' + focus.color + '"></i>' + esc(T.focusChip) + ': ' + esc(focus.name) + ' · ' + fs + '</span>';
+    h += '<span class="rp-chip">' + esc(T.gapText(spread)) + '</span></div></div></div>';
+    /* strengths + focus */
+    h += '<div class="rp-two">';
+    h += '<div class="rp-card rp-green"><p class="rp-k">' + esc(T.strengths) + '</p><h3>' + esc(s1.name) + ' & ' + esc(s2.name) + '</h3><p>' + esc(T.strengthsText) + '</p></div>';
+    h += '<div class="rp-card" style="--c:' + focus.color + ';background:color-mix(in srgb,' + focus.color + ' 14%,#fff)"><p class="rp-k">' + esc(T.startWith) + '</p><h3>' + esc(focus.name) + ' · ' + fs + '</h3><p>' + esc(fd.means) + '</p>' + (tie ? '<p class="rp-small">' + esc(T.tieNote(focus.name)) + '</p>' : '') + '</div>';
+    h += '</div>';
+    /* first week */
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.firstWeek) + '</h3><p class="rp-sub">' + esc(T.firstWeekSub) + '</p><div class="rp-steps">';
+    fd.actions.forEach(function (a, i) { h += '<div class="rp-step" style="--c:' + focus.color + '"><span>' + (i + 1) + '</span><p>' + esc(a) + '</p></div>'; });
+    h += '</div></div>';
+    /* also */
+    if (others.length) {
+      h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.alsoTitle) + '</h3><div class="rp-two">';
+      others.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-card rp-mini" style="background:color-mix(in srgb,' + a.color + ' 12%,#fff)"><h3><i style="background:' + a.color + '"></i>' + esc(a.name) + ' · ' + scores[i] + '</h3><p>' + esc(d[lvl(scores[i])]) + '</p><p class="rp-small">' + esc(T.oneStep + d.actions[0]) + '</p></div>'; });
+      h += '</div><p class="rp-sub">' + esc(T.alsoNote) + '</p></div>';
+    }
+    /* offer */
+    var fin = focus.key === "finances";
+    h += '<div class="rp-offer"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
+    h += '<p class="rp-k">' + esc(T.offerKicker) + '</p><h3>' + esc(fin ? T.offerFin(fs) : T.offerOther(focus.name)) + '</h3>';
+    if (!fin) h += '<p class="rp-offer-p">' + esc(T.offerOtherText) + '</p>';
+    h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    h += '<a class="rp-buy" href="' + T.offerHref + '">' + esc(T.offerBtn) + '</a><p class="rp-small">' + esc(T.offerNote) + '</p></div></div>';
+    /* grow */
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.growTitle) + '</h3><p class="rp-sub">' + esc(T.growSub) + '</p><div class="rp-grow">';
+    questions.forEach(function (q) { h += '<div class="rp-q"><span>' + esc(q[0].charAt(0)) + '</span><div><b>' + esc(q[0]) + '</b><p>' + esc(q[1]) + '</p></div></div>'; });
+    h += '</div></div>';
+    /* plan */
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.planTitle) + '</h3><div class="rp-weeks">';
+    T.plan.forEach(function (p, i) { h += '<div class="rp-week rp-w' + i + '"><b>' + esc(p[0]) + '</b><p>' + esc(p[1]) + '</p></div>'; });
+    h += '</div></div>';
+    /* all areas */
+    h += '<div class="rp-sec"><h3 class="rp-h">' + esc(T.allTitle) + '</h3><div class="rp-all">';
+    idx.forEach(function (i) { var a = areas[i], s = scores[i]; h += '<div class="rp-area"><div class="rp-area-top"><i style="background:' + a.color + '"></i><span>' + esc(a.name) + '</span><b>' + s + '</b></div><div class="rp-bar"><i style="width:' + s * 10 + '%;background:' + a.color + '"></i></div><p>' + esc(DL[a.key][lvl(s)]) + '</p></div>'; });
+    h += '</div></div>';
+    /* gift */
+    h += '<div class="rp-gift"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
+    h += '<p class="rp-note">' + esc(T.disclaimer) + '</p>';
+    box.innerHTML = h; box.hidden = false;
+  };
+
+  /* ---------------- PDF ---------------- */
+  function wheelImage(cb) {
+    var src = document.getElementById("wq-svg"); var clone = src.cloneNode(true);
+    clone.removeAttribute("class"); clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", "620"); clone.setAttribute("height", "620");
+    clone.querySelectorAll(".wq-band").forEach(function (b) { b.style.opacity = 1; });
+    var img = new Image();
+    img.onload = function () { var c = document.createElement("canvas"); c.width = 1240; c.height = 1240; var ctx = c.getContext("2d"); ctx.fillStyle = "#FAF7FF"; ctx.fillRect(0, 0, 1240, 1240); ctx.drawImage(img, 0, 0, 1240, 1240); cb(c.toDataURL("image/jpeg", 0.88)); };
+    img.onerror = function () { cb(null); };
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+  }
+  var FONTS = null;
+  function loadFonts(cb) {
+    if (FONTS !== null) return cb(FONTS);
+    var files = {corm: "fonts/corm-600.ttf", cormi: "fonts/corm-500i.ttf", body: T.bodyFont[0], bodyb: T.bodyFont[1]}, out = {};
+    Promise.all(Object.keys(files).map(function (k) {
+      return fetch(files[k]).then(function (r) { if (!r.ok) throw 0; return r.arrayBuffer(); }).then(function (b) {
+        var u = new Uint8Array(b), s = ""; for (var i = 0; i < u.length; i += 8192) s += String.fromCharCode.apply(null, u.subarray(i, i + 8192)); out[k] = btoa(s);
+      });
+    })).then(function () { FONTS = out; cb(out); }, function () { FONTS = false; cb(false); });
+  }
+  function hex(h) { h = h.replace("#", ""); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+  function make() {
+    var W = window.__wheelData; if (!W || !window.jspdf) { alert(T.rateFirst); return; }
+    loadFonts(function (F) { wheelImage(function (png) {
+      var doc = new window.jspdf.jsPDF({unit: "pt", format: "letter"});
+      if (F) {
+        doc.addFileToVFS("corm.ttf", F.corm); doc.addFont("corm.ttf", "Corm", "normal");
+        doc.addFileToVFS("cormi.ttf", F.cormi); doc.addFont("cormi.ttf", "CormI", "normal");
+        doc.addFileToVFS("body.ttf", F.body); doc.addFont("body.ttf", "Body", "normal");
+        doc.addFileToVFS("bodyb.ttf", F.bodyb); doc.addFont("bodyb.ttf", "Body", "bold");
+      }
+      var PW = 612, PH = 792, M = 44, CW = PW - 2 * M, INK = [43, 40, 48], MUTED = [118, 112, 128], PLUM = [137, 1, 73], LINE = [228, 220, 236];
+      function mix(c, t) { return [c[0] + (255 - c[0]) * t, c[1] + (255 - c[1]) * t, c[2] + (255 - c[2]) * t]; }
+      function dark(c) { return c.map(function (v) { return v * .6; }); }
+      function font(kind) {
+        if (!F) { doc.setFont("helvetica", kind === "b" || kind === "h" ? "bold" : "normal"); return 1; }
+        if (kind === "h") { doc.setFont("Corm", "normal"); return 1.32; }
+        if (kind === "hi") { doc.setFont("CormI", "normal"); return 1.32; }
+        doc.setFont("Body", kind === "b" ? "bold" : "normal"); return 1;
+      }
+      function hgt(t, size, kind, w) { var k = font(kind); doc.setFontSize(size * k); return doc.splitTextToSize(t, w).length * size * k * 1.35; }
+      function txt(t, x, y, size, kind, color, w, align) { var k = font(kind); doc.setFontSize(size * k); doc.setTextColor.apply(doc, color || INK); var L = w ? doc.splitTextToSize(t, w) : [t]; doc.text(L, x, y, {align: align || "left", lineHeightFactor: 1.35}); return y + L.length * size * k * 1.35; }
+      function card(x, y, w, h, fill, stroke) { doc.setFillColor.apply(doc, fill); if (stroke) { doc.setDrawColor.apply(doc, stroke); doc.setLineWidth(0.8); doc.roundedRect(x, y, w, h, 12, 12, "FD"); } else doc.roundedRect(x, y, w, h, 12, 12, "F"); }
+      function band(h) { var g0 = [253, 226, 238], g1 = [243, 233, 255], g2 = [228, 242, 255]; for (var gx = 0; gx < PW; gx += 4) { var t = gx / PW, a = t < .5 ? g0 : g1, b = t < .5 ? g1 : g2, u = t < .5 ? t * 2 : (t - .5) * 2; doc.setFillColor(a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u); doc.rect(gx, 0, 4.5, h, "F"); } }
+      function kicker(t, x, y, color) { doc.setCharSpace(1.2); txt(t.toUpperCase(), x, y, 7.5, "b", color || MUTED); doc.setCharSpace(0); }
+      function section(t, y, color) { doc.setFillColor.apply(doc, color); doc.circle(M + 4, y - 5, 3.5, "F"); return txt(t, M + 15, y, 17, "h", INK) + 4; }
+      function footer(n) { doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(0.6); doc.line(M, PH - 38, PW - M, PH - 38); txt(T.pFooter, M, PH - 22, 8.5, "n", MUTED); txt(n + " / 3", PW - M, PH - 22, 8.5, "n", MUTED, null, "right"); }
+      var f = W.areas[W.focus], d = W.D[f.key], fc = hex(f.color);
+      var date = new Date().toLocaleDateString(T.locale, {year: "numeric", month: "long", day: "numeric"});
+      /* page 1 */
+      band(150);
+      txt(T.pTitle, M, 74, 30, "h", INK); txt(T.pSub, M, 98, 12, "hi", [110, 80, 110]); txt(date, M, 120, 9, "n", MUTED);
+      card(PW - M - 140, 44, 140, 76, [255, 255, 255]); kicker(T.balance, PW - M - 126, 64, PLUM);
+      txt(num(W.avg), PW - M - 126, 104, 30, "h", PLUM); txt("/ 10", PW - M - 60, 104, 12, "n", MUTED);
+      card(M, 168, CW, 296, [250, 247, 255]); if (png) doc.addImage(png, "JPEG", M + 14, 182, 268, 268);
+      var lx = M + 304, lw = CW - 304 - 18, ly = 196; kicker(T.pScores, lx, ly - 2); ly += 20;
+      W.areas.forEach(function (a, i) { var c = hex(a.color); doc.setFillColor.apply(doc, c); doc.circle(lx + 4, ly - 3.5, 3.6, "F"); txt(a.name, lx + 14, ly, 10, "n", INK); txt(String(W.scores[i]), lx + lw, ly, 10.5, "b", INK, null, "right"); doc.setFillColor(236, 232, 242); doc.roundedRect(lx + 14, ly + 5, lw - 14, 5, 2.5, 2.5, "F"); doc.setFillColor.apply(doc, c); doc.roundedRect(lx + 14, ly + 5, (lw - 14) * W.scores[i] / 10, 5, 2.5, 2.5, "F"); ly += 27; });
+      var y = 486, shTitle = W.arch[0], shText = W.arch[1];
+      var shH = hgt(shText, 11.5, "hi", CW - 40) + 62;
+      card(M, y, CW, shH, [253, 238, 245]); kicker(T.pSays, M + 20, y + 20, PLUM);
+      txt(shTitle, M + 20, y + 44, 17, "h", INK); txt(shText, M + 20, y + 62, 11.5, "hi", [70, 50, 70], CW - 40); y += shH + 14;
+      var s1 = W.areas[W.strengths[0]], s2 = W.areas[W.strengths[1]], colW = (CW - 14) / 2;
+      var stT = T.pStrengthsText(s1.name + " (" + W.scores[W.strengths[0]] + ")", s2.name + " (" + W.scores[W.strengths[1]] + ")");
+      var bh = Math.max(hgt(stT, 10, "n", colW - 40), hgt(d.means, 10, "n", colW - 40)) + 70, gC = [125, 203, 52];
+      card(M, y, colW, bh, mix(gC, .86)); doc.setFillColor.apply(doc, gC); doc.roundedRect(M, y, 6, bh, 3, 3, "F");
+      kicker(T.strengths, M + 22, y + 22, [70, 120, 30]); txt(s1.name + " & " + s2.name, M + 22, y + 44, 15, "h", INK, colW - 40); txt(stT, M + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
+      var x2 = M + colW + 14; card(x2, y, colW, bh, mix(fc, .84)); doc.setFillColor.apply(doc, fc); doc.roundedRect(x2, y, 6, bh, 3, 3, "F");
+      kicker(T.startWith, x2 + 22, y + 22, dark(fc)); txt(f.name + " (" + W.scores[W.focus] + ")", x2 + 22, y + 44, 15, "h", INK, colW - 40); txt(d.means, x2 + 22, y + 62, 10, "n", [60, 60, 66], colW - 40);
+      footer(1);
+      /* page 2 */
+      doc.addPage(); band(10); kicker(T.pFocusKicker, M, 52, PLUM); txt(T.pPlanFor + (LANG === "ru" ? "«" + f.name + "»" : f.name), M, 84, 24, "h", INK); txt(T.pSmall, M, 106, 12, "hi", [110, 80, 110]);
+      y = 136; var stepH = 0; d.actions.forEach(function (a) { stepH += Math.max(hgt(a, 10.5, "n", CW - 90), 22) + 12; });
+      card(M, y, CW, stepH + 48, mix(fc, .88)); kicker(T.pSteps, M + 20, y + 24, dark(fc));
+      var sy = y + 52; d.actions.forEach(function (a, i) { doc.setFillColor.apply(doc, fc); doc.circle(M + 34, sy - 4, 11, "F"); txt(String(i + 1), M + 34, sy + 0.5, 11, "b", [255, 255, 255], null, "center"); var e = txt(a, M + 56, sy, 10.5, "n", INK, CW - 90); sy = Math.max(e, sy + 22) + 12; });
+      y += stepH + 48 + 18;
+      if (W.others.length) {
+        y = section(T.alsoTitle, y + 6, [255, 148, 24]); var n = W.others.length, ow = (CW - 14 * (n - 1)) / n, oh = 0;
+        W.others.forEach(function (i) { var a = W.areas[i], dd = W.D[a.key]; oh = Math.max(oh, hgt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], 9.5, "n", ow - 36)); }); oh += 58;
+        W.others.forEach(function (i, k) { var a = W.areas[i], dd = W.D[a.key], c = hex(a.color), ox = M + k * (ow + 14); card(ox, y, ow, oh, mix(c, .87)); doc.setFillColor.apply(doc, c); doc.roundedRect(ox, y, ow, 6, 3, 3, "F"); txt(a.name + " · " + W.scores[i], ox + 18, y + 30, 14, "h", INK); txt(dd[W.lvl(W.scores[i])] + T.pStep + dd.actions[0], ox + 18, y + 48, 9.5, "n", [60, 60, 66], ow - 36); });
+        y += oh + 22;
+      }
+      y = section(T.growTitle, y + 6, [43, 127, 242]); txt(T.pGrowSub, M + 15, y + 2, 10, "hi", MUTED); y += 16;
+      var gw = (CW - 14) / 2, gh = Math.min(140, (PH - 60 - y - 14) / 2);
+      W.questions.forEach(function (q, i) { var gx = M + (i % 2) * (gw + 14), gy = y + Math.floor(i / 2) * (gh + 14); card(gx, gy, gw, gh, [255, 255, 255], LINE); doc.setFillColor(243, 233, 255); doc.circle(gx + 26, gy + 26, 13, "F"); txt(q[0].charAt(0), gx + 26, gy + 32, 16, "h", [90, 50, 150], null, "center"); txt(q[0], gx + 46, gy + 24, 9, "b", [90, 50, 150]); var qe = txt(q[1], gx + 46, gy + 38, 9.5, "n", INK, gw - 62); doc.setDrawColor(214, 206, 224); doc.setLineWidth(0.6); for (var l = Math.max(qe + 14, gy + 62); l < gy + gh - 8; l += 20) doc.line(gx + 18, l, gx + gw - 18, l); });
+      footer(2);
+      /* page 3 */
+      doc.addPage(); band(10); kicker(T.pKeep, M, 52, PLUM); txt(T.planTitle, M, 84, 24, "h", INK); y = 106;
+      var tw = (CW - 30) / 4, th = 0; W.plan.forEach(function (p) { th = Math.max(th, hgt(p[1], 9.5, "n", tw - 28)); }); th += 74;
+      var tc = [[253, 226, 238], [243, 233, 255], [228, 242, 255], [232, 247, 225]];
+      W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tc[i]); txt(p[0], tx + 14, y + 30, 16, "h", INK); txt(p[1], tx + 14, y + 50, 9.5, "n", [60, 60, 66], tw - 28); doc.setDrawColor(120, 110, 130); doc.setLineWidth(0.9); doc.roundedRect(tx + tw - 26, y + 14, 13, 13, 3, 3, "S"); });
+      y += th + 30; y = section(T.allTitle, y, [255, 90, 78]) + 4;
+      var aw = (CW - 20) / 3, ah = 0; W.areas.forEach(function (a, i) { ah = Math.max(ah, hgt(W.D[a.key][W.lvl(W.scores[i])], 8.8, "n", aw - 28)); }); ah += 46;
+      W.areas.forEach(function (a, i) { var c = hex(a.color), ax = M + (i % 3) * (aw + 10), ay = y + Math.floor(i / 3) * (ah + 10); card(ax, ay, aw, ah, mix(c, .9)); doc.setFillColor.apply(doc, c); doc.roundedRect(ax, ay, aw, 5, 2.5, 2.5, "F"); txt(a.name, ax + 14, ay + 24, 10, "b", INK); txt(String(W.scores[i]), ax + aw - 14, ay + 26, 18, "h", dark(c), null, "right"); txt(W.D[a.key][W.lvl(W.scores[i])], ax + 14, ay + 40, 8.8, "n", [70, 70, 76], aw - 28); });
+      y += 3 * (ah + 10) + 14; font("n"); doc.setFontSize(7.5); var dExtra = (doc.splitTextToSize(T.disclaimer, CW).length - 1) * 10; var nh = PH - 60 - dExtra - y;
+      if (nh > 70) { card(M, y, CW, nh, [252, 250, 255], LINE); kicker(T.pNotes, M + 18, y + 22); doc.setDrawColor(222, 214, 232); doc.setLineWidth(0.6); for (var nl = y + 46; nl < y + nh - 10; nl += 22) doc.line(M + 18, nl, PW - M - 18, nl); }
+      txt(T.disclaimer, PW / 2, PH - 48 - dExtra, 7.5, "n", MUTED, CW, "center");
+      footer(3); doc.save(T.file);
+    }); });
+  }
+  document.addEventListener("click", function (e) { if (e.target.closest(".wq-pdf")) { e.preventDefault(); make(); } });
+})();

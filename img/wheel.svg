@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 620" font-family="Arial, Helvetica, sans-serif">
+<defs>
+<path id="c0" d="M314.6,48.0 A262,262 0 0 1 474.9,106.4"/>
+<path id="c1" d="M481.9,112.3 A262,262 0 0 1 567.2,260.0"/>
+<path id="c2" d="M568.8,269.0 A262,262 0 0 1 539.2,437.0"/>
+<path id="c3" d="M534.6,444.9 A262,262 0 0 1 403.9,554.6"/>
+<path id="c4" d="M395.3,557.7 A262,262 0 0 1 224.7,557.7"/>
+<path id="c5" d="M216.1,554.6 A262,262 0 0 1 85.4,444.9"/>
+<path id="c6" d="M80.8,437.0 A262,262 0 0 1 51.2,269.0"/>
+<path id="c7" d="M52.8,260.0 A262,262 0 0 1 138.1,112.3"/>
+<path id="c8" d="M145.1,106.4 A262,262 0 0 1 305.4,48.0"/>
+</defs>
+<path d="M310,310 L310.0,10.0 A300,300 0 0 1 502.8,80.2 Z" fill="#FF5A4E"/>
+<path d="M310,310 L502.8,80.2 A300,300 0 0 1 605.4,257.9 Z" fill="#FF9418"/>
+<path d="M310,310 L605.4,257.9 A300,300 0 0 1 569.8,460.0 Z" fill="#F2BE1A"/>
+<path d="M310,310 L569.8,460.0 A300,300 0 0 1 412.6,591.9 Z" fill="#7DCB34"/>
+<path d="M310,310 L412.6,591.9 A300,300 0 0 1 207.4,591.9 Z" fill="#1FC9BC"/>
+<path d="M310,310 L207.4,591.9 A300,300 0 0 1 50.2,460.0 Z" fill="#2B7FF2"/>
+<path d="M310,310 L50.2,460.0 A300,300 0 0 1 14.6,257.9 Z" fill="#7A47CF"/>
+<path d="M310,310 L14.6,257.9 A300,300 0 0 1 117.2,80.2 Z" fill="#A65CEB"/>
+<path d="M310,310 L117.2,80.2 A300,300 0 0 1 310.0,10.0 Z" fill="#FF4F9E"/>
+<circle cx="310" cy="310" r="238" fill="#fff"/>
+<circle cx="310" cy="310" r="36" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="56" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="76" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="96" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="116" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="136" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="156" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="176" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="196" fill="none" stroke="#222" stroke-width="1"/>
+<circle cx="310" cy="310" r="238" fill="none" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="310.0" y2="10.0" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="502.8" y2="80.2" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="605.4" y2="257.9" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="569.8" y2="460.0" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="412.6" y2="591.9" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="207.4" y2="591.9" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="50.2" y2="460.0" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="14.6" y2="257.9" stroke="#222" stroke-width="1.6"/>
+<line x1="310" y1="310" x2="117.2" y2="80.2" stroke="#222" stroke-width="1.6"/>
+<circle cx="310" cy="310" r="300" fill="none" stroke="#222" stroke-width="1.6"/>
+<text font-size="25" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c0" startOffset="50%" text-anchor="middle">ЗДОРОВЬЕ</textPath></text>
+<text font-size="25" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c1" startOffset="50%" text-anchor="middle">КАРЬЕРА</textPath></text>
+<text font-size="25" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c2" startOffset="50%" text-anchor="middle">ФИНАНСЫ</textPath></text>
+<text font-size="25" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c3" startOffset="50%" text-anchor="middle">ХОББИ</textPath></text>
+<text font-size="15" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c4" startOffset="50%" text-anchor="middle">ЛИЧНОСТНЫЙ РОСТ</textPath></text>
+<text font-size="21" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c5" startOffset="50%" text-anchor="middle">ОТНОШЕНИЯ</textPath></text>
+<text font-size="21" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c6" startOffset="50%" text-anchor="middle">ОТДЫХ</textPath></text>
+<text font-size="21" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c7" startOffset="50%" text-anchor="middle">ДУХОВНОСТЬ</textPath></text>
+<text font-size="25" font-weight="700" fill="#fff" letter-spacing="1"><textPath href="#c8" startOffset="50%" text-anchor="middle">СЕМЬЯ</textPath></text>
+</svg>
