@@ -392,7 +392,7 @@ body{font-size:17px}
         <div class="wq-intro">
       <h1>Насколько вы в балансе?</h1>
     </div>
-        <div id="wq-progress"><p class="wq-big">Оценено <span id="wq-count">0</span> из 9 сфер</p><p class="wq-muted" id="wq-muted-hint">Нажмите на кольцо: 1 — в центре, 10 — у края.</p></div>
+        <div id="wq-progress"><p class="wq-muted" id="wq-muted-hint">Нажмите на кольцо: 1 — в центре, 10 — у края.</p></div>
         <ol class="wq-list" id="wq-list"></ol>
         <a class="wq-btn wq-below" id="wq-below" href="#wq-report" hidden>Смотреть результат ↓</a>
         
@@ -493,7 +493,7 @@ body{font-size:17px}
   function render() {
     AREAS.forEach(function (a, j) { draw(j, scores[j]); });
     var done = scores.filter(function (s) { return s > 0; }).length;
-    document.getElementById("wq-count").textContent = done;
+    var cnt = document.getElementById("wq-count"); if (cnt) cnt.textContent = done;
     var list = document.getElementById("wq-list"); list.innerHTML = "";
     AREAS.forEach(function (a, j) {
       var li = document.createElement("li");
