@@ -210,9 +210,21 @@
     /* gift */
     h += '<div class="rp-gift rp-rv"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
     h += '<p class="rp-note">' + esc(T.disclaimer) + '</p>';
-    box.innerHTML = h; box.hidden = false; rpAnimate(box);
+    box.innerHTML = h; box.hidden = false; window.syncWheelBand(); rpAnimate(box);
   };
 
+
+
+  /* the band behind the wheel is extended down to the bottom of the first report block */
+  window.syncWheelBand = function () {
+    var wq = document.querySelector(".wq"), box = document.getElementById("wq-report"); if (!wq) return;
+    var tb = box && !box.hidden ? box.querySelector(".rp-tbl") : null;
+    if (!tb) { wq.style.setProperty("--ext", "0px"); return; }
+    var ext = box.offsetTop + tb.offsetTop + tb.offsetHeight - (wq.offsetTop + wq.offsetHeight) + 44;
+    wq.style.setProperty("--ext", Math.max(0, ext) + "px");
+  };
+  window.addEventListener("resize", function () { window.syncWheelBand(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { window.syncWheelBand(); });
 
   /* ---------------- motion ---------------- */
   var CK_KEY = "my365-checks";

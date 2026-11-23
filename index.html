@@ -402,6 +402,11 @@ html,body{overflow-x:clip}
 .rp-gift{background:linear-gradient(120deg,#FDFDC9 0%,#F1E2F8 55%,#D9BDE9 100%)}
 .rp-ribbon i{color:#c69fd5}
 @media (max-width:860px){.rp-col li{font-size:20px}}
+/* ===== band under the wheel continues behind the first report block ===== */
+.wq::before{bottom:calc(var(--ext,0px) * -1)}
+#wq-report{position:relative;z-index:1;margin-top:14px}
+.rp-tbl{background:none !important;box-shadow:none !important;animation:none;padding:6px 34px 0}
+@media (max-width:860px){.rp-tbl{padding:6px 0 0}}
 </style>
 </head>
 <body>
@@ -530,7 +535,7 @@ html,body{overflow-x:clip}
     });
     var mh = document.getElementById("wq-muted-hint"), below = document.getElementById("wq-below"), rp = document.getElementById("wq-report");
     if (done === N) { if (mh) mh.hidden = true; below.hidden = false; if (window.buildWheelReport) window.buildWheelReport(AREAS, scores); }
-    else { if (mh) mh.hidden = false; below.hidden = true; if (rp) rp.hidden = true; }
+    else { if (mh) mh.hidden = false; below.hidden = true; if (rp) rp.hidden = true; if (window.syncWheelBand) window.syncWheelBand(); }
   }
   document.addEventListener("click", function (e) { if (!e.target.closest(".wq-reset")) return;
     scores = AREAS.map(function () { return 0; });
