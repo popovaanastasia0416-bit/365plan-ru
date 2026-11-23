@@ -109,7 +109,7 @@
   var R2 = {
     en: {
       tableTitle: "Your wheel *at a glance*", avg: "Average score",
-      strongCol: "Strengths", strongRange: "6–10", weakCol: "Areas to grow", weakRange: "1–5",
+      strongCol: "Your strengths", weakCol: "Where to turn your attention",
       noneStrong: "No area above 5 yet, and that is okay: this is your starting point.", noneWeak: "No weak areas at all. Impressive!",
       praiseTitle: "You are doing *great*",
       praiseIntro: function (l) { return "Your strong foundation is " + l + ". That does not happen by chance: it is the result of your choices, effort and care. Take a moment to be proud of yourself."; },
@@ -125,7 +125,7 @@
     },
     ru: {
       tableTitle: "Ваше колесо *с первого взгляда*", avg: "Средний балл",
-      strongCol: "Сильные стороны", strongRange: "6–10", weakCol: "Зоны роста", weakRange: "1–5",
+      strongCol: "Твои сильные стороны", weakCol: "Куда тебе нужно обратить своё внимание",
       noneStrong: "Пока ни одной сферы выше 5, и это нормально: это ваша точка старта.", noneWeak: "Слабых сфер нет. Впечатляет!",
       praiseTitle: "Вы *молодец*, и вот почему",
       praiseIntro: function (l) { return "Ваш крепкий фундамент — " + l + ". Это не случайность, а результат ваших решений, усилий и заботы. Остановитесь на минуту и похвалите себя."; },
@@ -174,7 +174,7 @@
     var strong = byHigh.filter(function (i) { return scores[i] > 5; });
     var weak = byLow.filter(function (i) { return scores[i] <= 5; });
     function em(t) { return esc(t).replace(/\*([^*]+)\*/g, '<em>$1</em>'); }
-    function row(i, k) { var a = areas[i]; return '<li style="--c:' + a.color + ';--d:' + (k * 70) + 'ms"><i></i><span>' + esc(a.name) + '</span><u><s style="width:' + scores[i] * 10 + '%"></s></u><b>' + scores[i] + '</b></li>'; }
+    function row(i, k) { var a = areas[i]; return '<li style="--d:' + (k * 70) + 'ms">' + esc(a.name) + '</li>'; }
     var circ = 2 * Math.PI * 52, pct = avg / 10;
     var h = '';
     /* 1. table */
@@ -182,8 +182,8 @@
     h += '<circle class="rp-arc" cx="60" cy="60" r="52" fill="none" stroke="url(#rpg)" stroke-width="11" style="--len:' + (circ * pct).toFixed(1) + ';--circ:' + circ.toFixed(1) + '" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
     h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#A65CEB"/><stop offset="1" stop-color="#2B7FF2"/></linearGradient></defs></svg>';
     h += '<div class="rp-gauge-n"><b class="rp-count" data-to="' + avg.toFixed(1) + '">' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + em(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
-    h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + ' <span>' + U.strongRange + '</span></p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
-    h += '<div class="rp-col rp-col-w"><p class="rp-col-h">' + esc(U.weakCol) + ' <span>' + U.weakRange + '</span></p>' + (weak.length ? '<ul>' + weak.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneWeak) + '</p>') + '</div></div></div>';
+    h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + '</p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
+    h += '<div class="rp-col rp-col-w"><p class="rp-col-h">' + esc(U.weakCol) + '</p>' + (weak.length ? '<ul>' + weak.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneWeak) + '</p>') + '</div></div></div>';
     /* ribbon */
     var rib = areas.map(function (a) { return '<span style="color:' + a.color + '">' + esc(a.name) + '</span><i>✦</i>'; }).join('');
     h += '<div class="rp-ribbon" aria-hidden="true"><div>' + rib + rib + '</div></div>';
