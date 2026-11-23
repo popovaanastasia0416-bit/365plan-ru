@@ -203,7 +203,7 @@
     /* 4. offer */
     var finWeak = weak.some(function (i) { return areas[i].key === "finances"; });
     var fs2 = scores[areas.map(function (a) { return a.key; }).indexOf("finances")];
-    h += '<div class="rp-offer rp-rv"><i class="rp-tw rp-tw1">✦</i><i class="rp-tw rp-tw2">✦</i><i class="rp-tw rp-tw3">✦</i><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
+    h += '<div class="rp-offer rp-rv"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
     h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + em(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
     h += '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>' + (finWeak ? '<p class="rp-offer-p">' + esc(U.offFinWeak(fs2)) + '</p>' : '');
     h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';

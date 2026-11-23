@@ -556,12 +556,26 @@ footer{background:var(--bg) !important;border-top:1px solid var(--line)}
   });
   // labels
   var defs = el("defs", {});
+  var LBL = [], LR = 268, LSTEP = STEP - 2;
   AREAS.forEach(function (a, i) {
-    var a0 = i * STEP + 1, a1 = (i + 1) * STEP - 1, p0 = pt(268, a0), p1 = pt(268, a1);
-    el("path", {id: "wq-lb" + i, d: "M" + p0 + " A268,268 0 0 1 " + p1}, defs);
-    var t = el("text", {"font-family": "Jost, Arial, sans-serif", "font-weight": "700", "font-size": a.name.length > 12 ? 15 : 21, fill: "#fff", "letter-spacing": "1", "pointer-events": "none"});
+    var flip = false;                                                   // every label turned the same way: tops of letters point outward          
+    var t = el("text", {"font-family": "Jost, Arial, sans-serif", "font-weight": "700", "font-size": 19, fill: "#fff", "letter-spacing": "0.8", "pointer-events": "none"});
     var tp = el("textPath", {href: "#wq-lb" + i, startOffset: "50%", "text-anchor": "middle"}, t); tp.textContent = a.name.toUpperCase();
+    LBL.push({t: t, tp: tp, flip: flip, i: i});
   });
+  function layoutLabels() {
+    var arc = LR * LSTEP * Math.PI / 180, fs = 19;
+    LBL.forEach(function (l) { l.t.setAttribute("font-size", 19); var w = 0; try { w = l.tp.getComputedTextLength(); } catch (e) {} if (w > arc * .94) fs = Math.min(fs, 19 * arc * .94 / w); });
+    fs = Math.max(11, Math.floor(fs * 10) / 10);                       // one size for every label
+    LBL.forEach(function (l) {
+      l.t.setAttribute("font-size", fs);
+      var r = LR + (l.flip ? 1 : -1) * fs * 0.35, a0 = l.i * STEP + 1, a1 = (l.i + 1) * STEP - 1, p0 = pt(r, a0), p1 = pt(r, a1), id = "wq-lb" + l.i, old = document.getElementById(id);
+      if (old) old.parentNode.removeChild(old);
+      el("path", {id: id, d: l.flip ? "M" + p1 + " A" + r + "," + r + " 0 0 0 " + p0 : "M" + p0 + " A" + r + "," + r + " 0 0 1 " + p1}, defs);
+    });
+  }
+  layoutLabels();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutLabels);
   var hover = el("text", {x: C, y: C + 6, "text-anchor": "middle", "font-family": "Jost, Arial, sans-serif", "font-weight": "700", "font-size": "18", fill: "#222", "pointer-events": "none", "class": "wq-hover"});
 
   function draw(i, k) { fills[i].setAttribute("d", k > 0 ? sector(R_IN * 0, ringR(k), i * STEP, (i + 1) * STEP) : ""); }
