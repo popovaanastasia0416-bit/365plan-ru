@@ -451,6 +451,16 @@ body{background-color:var(--bg);color:var(--ink)}
 .rp-meter i.on g ellipse{fill:var(--c)}
 .rp-meter i.on .ct{fill:var(--surface);stroke:var(--surface)}
 @media (max-width:420px){.rp-meter i{width:23px;height:23px}.rp-meter{gap:2px}}
+
+/* ===== one background everywhere: pale pink --bg ===== */
+html,body{background:var(--bg)}
+.header{background:var(--bg) !important}
+.wq::before{background:var(--bg) !important}
+.top-row::before{background:var(--bg) !important}
+.rp-ribbon{background:var(--bg) !important}
+footer{background:var(--bg) !important;border-top:1px solid var(--line)}
+.art{background:var(--bg)}
+.art-img{background:var(--surface-2)}
 </style>
 </head>
 <body>
