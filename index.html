@@ -461,13 +461,24 @@ html,body{background:var(--bg)}
 footer{background:var(--bg) !important;border-top:1px solid var(--line)}
 .art{background:var(--bg)}
 .art-img{background:var(--surface-2)}
+.rp-offer-fin{color:#fff !important;font-weight:600;margin:10px 0 2px}
+.rp-big{right:14px;bottom:-14px;font-size:78px;opacity:.22;white-space:nowrap}
+.rp-big small{font-size:.42em;font-weight:700;margin-left:3px}
+@media (max-width:860px){.rp-big{font-size:64px;bottom:-10px}}
+.rp-scard{min-height:0 !important}
+.rp-scard-top,.rp-scard p{padding-right:0 !important}
+.rp-scard-top{align-items:center;gap:10px}
+.rp-scard-top b.rp-sc{font-family:'Unbounded','Jost',Arial,sans-serif;font-size:13px;font-weight:700;color:var(--ink);background:var(--bg);padding:5px 9px;line-height:1;white-space:nowrap;box-shadow:inset 0 0 0 1.5px var(--c)}
+.rp-scard .rp-meter{margin:2px 0 12px;gap:3px}
+.rp-scard .rp-meter i{width:22px;height:22px}
+@media (max-width:420px){.rp-scard .rp-meter i{width:20px;height:20px}.rp-scard .rp-meter{gap:2px}}
 </style>
 </head>
 <body>
 
 <header class="header"><div class="header-in">
   <a class="logo" href="index.html" aria-label="my365plan — главная"><img class="logo-icon" src="img/logo-icon.png" alt=""><img class="logo-word" src="img/logo-word.png" alt="my365plan"></a>
-  <nav class="nav"><a href="planners.html#planners">Планеры</a><a href="planners.html#qa">Вопросы</a><a href="planners.html#about">О нас</a></nav>
+  <nav class="nav"><a href="planners.html#planners">Планеры</a><a href="index.html#articles">Блог</a><a href="planners.html#qa">Вопросы</a></nav>
   <a class="lang" href="https://popovaanastasia0416-bit.github.io/365plan/" hreflang="en" lang="en" title="English version">EN</a>
 </div></header>
 
@@ -488,12 +499,12 @@ footer{background:var(--bg) !important;border-top:1px solid var(--line)}
   </section>
   <section class="wq-report" id="wq-report" hidden></section>
   <section class="articles" id="articles">
-    <h2>Статьи</h2>
+    <h2>Блог</h2>
     <div class="art-grid"><article class="art"><div class="art-img"></div><p class="art-cat">Статья</p><h3>Скоро</h3></article><article class="art"><div class="art-img"></div><p class="art-cat">Статья</p><h3>Скоро</h3></article><article class="art"><div class="art-img"></div><p class="art-cat">Статья</p><h3>Скоро</h3></article></div>
   </section>
 </div>
 <footer>
-  <div class="links"><a href="planners.html#planners">Планеры</a><a href="planners.html#qa">Вопросы</a></div>
+  <div class="links"><a href="planners.html#planners">Планеры</a><a href="index.html#articles">Блог</a><a href="planners.html#qa">Вопросы</a></div>
   <p>Поддержка: <a href="mailto:support.my365plan@gmail.com">support.my365plan@gmail.com</a></p>
   <p>© <span id="y">2026</span> my365plan — планеры для спокойной жизни.</p>
 </footer>

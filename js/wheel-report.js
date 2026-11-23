@@ -17,7 +17,7 @@
       relationships: {means: "Your partner and friends: how connected and supported you feel.", actions: ["Message two people you miss today.", "Plan one evening together with no phones.", "Ask someone close how you can do better."], low: "Reach out first: most people are waiting for someone else to.", mid: "Put regular time with your people in the calendar.", high: "Be the one who brings people together."},
       recreation: {means: "Rest and recovery: time off, trips, real breaks.", actions: ["Keep one fully free evening this week.", "Plan a day trip or small treat this month.", "Turn off work notifications after a set hour."], low: "Rest is not a reward for finishing everything: schedule it first.", mid: "Plan your next real break now, even a short one.", high: "Keep your boundaries when life speeds up."},
       spirituality: {means: "Inner calm, meaning and values, whatever that means for you.", actions: ["Take 5 quiet minutes each morning.", "Write your top 3 values and test one choice.", "Spend time in nature this week."], low: "Start with five quiet minutes a day: consistency beats length.", mid: "Link a daily practice to something you already do, like morning coffee.", high: "Use this calm as an anchor for the shakier areas."},
-      family: {means: "Your relationships with parents, siblings and children.", actions: ["Plan one shared meal or call this week.", "Start a shared family calendar.", "Ask what would make home feel easier."], low: "One small ritual, like a Sunday call, rebuilds closeness.", mid: "Plan family time ahead instead of fitting it in.", high: "Share the load so home stays good for everyone."}
+      family: {means: "Your relationships with parents, siblings and children.", actions: ["Plan one shared meal or call this week.", "Start a shared family calendar.", "Ask what would make living together nicer."], low: "One small ritual, like a Sunday call, rebuilds closeness.", mid: "Plan family time ahead instead of fitting it in.", high: "Share the load so home stays good for everyone."}
     },
     ru: {
       health: {means: "Энергия, сон, движение и питание. Когда здесь проседает, всё остальное даётся тяжелее.", actions: ["Ложитесь спать в одно время 7 дней подряд.", "Гуляйте по 20 минут три дня на этой неделе.", "Вечером набросайте меню на завтра."], low: "Начните со сна: это самый простой шаг с самым большим эффектом.", mid: "Выберите одну привычку (вода, шаги, отбой) и отмечайте её каждый день.", high: "Берегите режим в загруженные недели: на нём держится всё остальное."},
@@ -28,7 +28,7 @@
       relationships: {means: "Партнёр и друзья: насколько вы чувствуете близость и поддержку.", actions: ["Напишите двум людям, по которым скучаете.", "Запланируйте вечер вместе без телефонов.", "Спросите близкого, что можно делать лучше."], low: "Сделайте первый шаг: многие тоже ждут, что напишут им.", mid: "Внесите встречи с близкими в календарь регулярно.", high: "Будьте тем, кто собирает людей вместе."},
       recreation: {means: "Отдых и восстановление: выходные, поездки, настоящие перерывы.", actions: ["Выделите один свободный вечер на неделе.", "Запланируйте поездку на день или радость.", "Отключайте рабочие уведомления вечером."], low: "Отдых не награда за то, что всё сделано: ставьте его в план первым.", mid: "Запланируйте следующий настоящий отдых уже сейчас, пусть даже короткий.", high: "Сохраняйте свои границы, даже когда жизнь ускоряется."},
       spirituality: {means: "Внутреннее спокойствие, смысл и ценности, что бы это ни значило для вас.", actions: ["Каждое утро 5 минут тишины.", "Запишите 3 главные ценности и сверьте решение.", "Проведите время на природе на этой неделе."], low: "Начните с пяти минут тишины в день: важнее регулярность, чем длительность.", mid: "Привяжите практику к тому, что вы и так делаете, например к утреннему кофе.", high: "Опирайтесь на это спокойствие там, где пока шатко."},
-      family: {means: "Отношения с родителями, братьями, сёстрами и детьми.", actions: ["Запланируйте общий ужин или звонок.", "Заведите общий семейный календарь.", "Спросите, что сделало бы дом легче."], low: "Один маленький ритуал, например звонок по воскресеньям, возвращает близость.", mid: "Планируйте семейное время заранее, а не по остаточному принципу.", high: "Делите нагрузку, чтобы дома было хорошо всем."}
+      family: {means: "Отношения с родителями, братьями, сёстрами и детьми.", actions: ["Запланируйте общий ужин или звонок.", "Заведите общий семейный календарь.", "Спросите родных, как сделать жизнь вместе приятнее."], low: "Один маленький ритуал, например звонок по воскресеньям, возвращает близость.", mid: "Планируйте семейное время заранее, а не по остаточному принципу.", high: "Делите нагрузку, чтобы дома было хорошо всем."}
     }
   };
 
@@ -54,8 +54,8 @@
       offerFin: function (s) { return "Turn your " + s + " in Finances into a clear plan"; },
       offerOther: function (n) { return "A planner for " + n + " is on its way"; },
       offerOtherText: "Meanwhile, most people start with money: money stress touches every area of the wheel.",
-      offerList: ["a debt list with monthly interest and a filled-in example", "a monthly budget with ready categories", "2 proven debt payoff methods", "a savings tracker that makes your emergency fund fun", "23 pages: plan your next 12 months"],
-      offerBtn: "Get the Debt Payoff Planner · $5", offerNote: "Instant PDF download · 23 pages · 3 colors", offerHref: "planners.html#planners",
+      offerList: ["A debt table: see every debt, its interest and what to pay each month", "A monthly budget: know where your money goes and what you can save", "Two proven ways to pay debt off, so you can pick the one that feels right", "A rainy-day fund tracker: colour in squares as you save, like a game", "A filled-in example and a 12-month plan, so you never wonder what to do next"],
+      offerBtn: "Get the Debt Payoff Planner · $5", offerNote: "The PDF arrives right after payment · 23 pages · 3 colours to choose from", offerHref: "planners.html#planners",
       giftKicker: "Free for you", giftTitle: "Your wheel, ready to print", giftText: "3 beautiful pages: your wheel, your plan for the month and a 30-day tracker.",
       download: "Download my wheel (PDF)", startOver: "Start over",
       disclaimer: "Based on the classic Wheel of Life coaching exercise and the GROW coaching model. General guidance, not professional advice.",
@@ -87,8 +87,8 @@
       offerFin: function (s) { return "Превратите свои " + s + " " + plural(s, "балл", "балла", "баллов") + " в «Финансах» в понятный план"; },
       offerOther: function (n) { return "Планер для сферы «" + n + "» уже в работе"; },
       offerOtherText: "А пока многие начинают с денег: финансовая тревога влияет на каждую сферу колеса.",
-      offerList: ["список долгов с процентами в месяц и примером заполнения", "бюджет на месяц с готовыми статьями", "2 рабочих метода погашения долгов", "трекер подушки безопасности: копить становится игрой", "23 страницы: план на 12 месяцев вперёд"],
-      offerBtn: "Получить планер · 390 ₽", offerNote: "PDF сразу после оплаты · 23 страницы · 3 цвета", offerHref: "planners.html#planners",
+      offerList: ["Таблица долгов: вы увидите все долги, проценты и сколько платить каждый месяц", "Бюджет на месяц: понятно, куда уходят деньги и сколько можно отложить", "Два проверенных способа гасить долги: выберите тот, что вам ближе", "Копилка на чёрный день: закрашивайте клеточки, когда откладываете, как в игре", "Пример заполнения и план на 12 месяцев, чтобы не гадать, что делать дальше"],
+      offerBtn: "Получить планер · 390 ₽", offerNote: "Файл придёт сразу после оплаты · 23 страницы · 3 цвета на выбор", offerHref: "planners.html#planners",
       giftKicker: "Подарок для вас", giftTitle: "Ваше колесо, готовое к печати", giftText: "3 красивые страницы: ваше колесо, план на месяц и трекер на 30 дней.",
       download: "Скачать моё колесо (PDF)", startOver: "Пройти заново",
       disclaimer: "По мотивам классического коучингового упражнения «Колесо баланса» и модели GROW. Общие рекомендации, не профессиональная консультация.",
@@ -118,10 +118,10 @@
       balIntro: "A wheel rolls smoothly only when it is round. These areas are not failures: they are where your biggest growth is waiting. Even +1 or +2 points here will make your whole life feel lighter.",
       balNone: "All your areas are above 5. To keep the balance, pick the lowest one and take it one point higher this month.",
       how: "How to start", and: " and ",
-      offK: "Make it easy", offT: "Our planners and checklists will do *half the work*",
-      offP: "Change sticks when it is written down. Our printable planners and checklists turn these steps into a simple routine: open, tick, see your progress.",
-      offAvail: "Available now: the Debt Payoff Planner", offSoon: "Planners and checklists for the other areas are on the way.",
-      offFinWeak: function (s) { return "Finances is one of your areas to grow (" + s + "). This planner was made exactly for that."; }
+      offK: "So it does not stay in your head", offT: "Get your money in order, *one small step* at a time",
+      offP: "When your debts and spending are on paper, the worry gets smaller. The planner shows you where to start and lets you watch your debt shrink every month.",
+      offAvail: "What you get", offSoon: "Planners for the other areas are coming soon.",
+      offFinWeak: function (s) { return "Your Finances score is " + s + " out of 10 right now. This planner helps most right there."; }
     },
     ru: {
       tableTitle: "Ваше колесо *с первого взгляда*", avg: "Средний балл",
@@ -134,10 +134,10 @@
       balIntro: "Колесо едет ровно, только когда оно круглое. Эти сферы — не провал, а место, где вас ждёт самый большой рост. Даже +1–2 балла здесь сделают всю жизнь легче.",
       balNone: "Все сферы выше 5. Чтобы сохранить баланс, выберите самую низкую и поднимите её на балл в этом месяце.",
       how: "С чего начать", and: " и ",
-      offK: "Проще вместе с нами", offT: "Наши планеры и чек-листы сделают *половину работы*",
-      offP: "Перемены держатся, когда они на бумаге. Планеры и чек-листы для печати превращают эти шаги в простую привычку: открыли, отметили, видите прогресс.",
-      offAvail: "Уже доступен: планер «Закройте долги за 12 месяцев»", offSoon: "Планеры и чек-листы для других сфер уже готовятся.",
-      offFinWeak: function (s) { return "Финансы — одна из ваших зон роста (" + s + "). Этот планер создан как раз для неё."; }
+      offK: "Чтобы не держать всё в голове", offT: "Наведите порядок в деньгах: *шаг за шагом*",
+      offP: "Когда долги и траты записаны на бумаге, тревоги становится меньше. Планер подскажет, с чего начать, и вы увидите, как долг уменьшается с каждым месяцем.",
+      offAvail: "Что вы получите", offSoon: "Планеры для других сфер уже готовим.",
+      offFinWeak: function (s) { return "Финансы у вас сейчас на " + s + " из 10. Именно с ними планер поможет лучше всего."; }
     }
   };
   var U = R2[LANG], PR = PRAISE[LANG];
@@ -192,7 +192,7 @@
     var praiseSet = strong.length ? strong : byHigh.slice(0, 2);
     var names = praiseSet.slice(0, 3).map(function (i) { return areas[i].name; });
     h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.praiseTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(strong.length ? U.praiseIntro(joinNames(names)) : U.praiseNone(joinNames(names))) + '</p><div class="rp-sgrid">';
-    praiseSet.forEach(function (i, k) { var a = areas[i]; h += '<div class="rp-scard rp-rv" style="--c:' + a.color + ';--d:' + (k % 3) * 90 + 'ms"><span class="rp-big" aria-hidden="true">' + scores[i] + '</span><div class="rp-scard-top"><span>' + esc(a.name) + '</span></div><p>' + esc(PR[a.key]) + '</p></div>'; });
+    praiseSet.forEach(function (i, k) { var a = areas[i]; h += '<div class="rp-scard rp-rv" style="--c:' + a.color + ';--d:' + (k % 3) * 90 + 'ms"><div class="rp-scard-top"><span>' + esc(a.name) + '</span></div><span class="rp-meter" role="img" aria-label="' + scores[i] + ' / 10">' + meter(scores[i]) + '</span><p>' + esc(PR[a.key]) + '</p></div>'; });
     h += '</div></div>';
     /* 3. balance */
     h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.balTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
@@ -205,7 +205,7 @@
     var fs2 = scores[areas.map(function (a) { return a.key; }).indexOf("finances")];
     h += '<div class="rp-offer rp-rv"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
     h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + em(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
-    h += '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>' + (finWeak ? '<p class="rp-offer-p">' + esc(U.offFinWeak(fs2)) + '</p>' : '');
+    h += (finWeak ? '<p class="rp-offer-p rp-offer-fin">' + esc(U.offFinWeak(fs2)) + '</p>' : '') + '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>';
     h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
     h += '<a class="rp-buy" href="' + T.offerHref + '"><span>' + esc(T.offerBtn) + '</span></a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
     /* gift */
@@ -411,12 +411,15 @@
       W.plan.forEach(function (p, i) { var tx = M + i * (tw + 10); card(tx, y, tw, th, tcols[i]); txt(p[0], tx + 12, y + 26, 12, "h", INK); txt(p[1], tx + 12, y + 44, 9, "n", INK, tw - 24); doc.setDrawColor.apply(doc, INK); doc.setLineWidth(1); doc.rect(tx + tw - 24, y + 12, 11, 11, "S"); });
       y += th + 18;
       /* offer */
-      var ot = plain(U.offT), oh2 = 26 + hgt(ot, 13, "h", CW - 44) + hgt(U.offP, 9.5, "n", CW - 44) + 22 + hgt(U.offAvail, 9.5, "b", CW - 44) + 14;
+      var ot = plain(U.offT), bl = T.offerList.map(function (x) { return "• " + x; }), blH = 0;
+      bl.forEach(function (x) { blH += hgt(x, 9.5, "n", CW - 44) + 3; });
+      var oh2 = 28 + hgt(ot, 13, "h", CW - 44) + hgt(U.offP, 9.5, "n", CW - 44) + 18 + blH + 14;
       ensure(oh2 + 10);
       card(M, y, CW, oh2, INK); kicker(U.offK, M + 22, y + 22, SURF);
       var oy = txt(ot, M + 22, y + 42, 13, "h", WHITE, CW - 44);
       oy = txt(U.offP, M + 22, oy + 2, 9.5, "n", [243, 213, 225], CW - 44);
-      txt(U.offAvail, M + 22, oy + 6, 9.5, "b", SURF, CW - 44);
+      oy = txt(U.offAvail, M + 22, oy + 8, 9.5, "b", SURF, CW - 44);
+      bl.forEach(function (x) { oy = txt(x, M + 22, oy + 3, 9.5, "n", [243, 213, 225], CW - 44); });
       y += oh2 + 14;
       /* notes + disclaimer */
       font("n"); doc.setFontSize(7.5); var dExtra = (doc.splitTextToSize(T.disclaimer, CW).length - 1) * 10;
