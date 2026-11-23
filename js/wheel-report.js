@@ -179,7 +179,7 @@
     var h = '';
     /* 1. table */
     h += '<div class="rp-tbl rp-rv"><div class="rp-tbl-head"><div class="rp-gauge rp-gauge-s"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="11"/>';
-    h += '<circle class="rp-arc" cx="60" cy="60" r="52" fill="none" stroke="#F4B6C9" stroke-width="11" style="--len:' + (circ * pct).toFixed(1) + ';--circ:' + circ.toFixed(1) + '" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
+    h += '<circle class="rp-arc" cx="60" cy="60" r="52" fill="none" stroke="#FFC1DC" stroke-width="11" style="--len:' + (circ * pct).toFixed(1) + ';--circ:' + circ.toFixed(1) + '" stroke-dasharray="' + (circ * pct).toFixed(1) + ' ' + circ.toFixed(1) + '" transform="rotate(-90 60 60)"/>';
     h += '<defs><linearGradient id="rpg" x1="0" x2="1"><stop offset="0" stop-color="#FF4F9E"/><stop offset=".5" stop-color="#FF7BB5"/><stop offset="1" stop-color="#FFB3D6"/></linearGradient></defs></svg>';
     h += '<div class="rp-gauge-n"><b class="rp-count" data-to="' + avg.toFixed(1) + '">' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + em(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
     h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + '</p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
