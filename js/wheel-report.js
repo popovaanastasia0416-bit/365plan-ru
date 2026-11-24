@@ -55,7 +55,7 @@
       offerOther: function (n) { return "A planner for " + n + " is on its way"; },
       offerOtherText: "Meanwhile, most people start with money: money stress touches every area of the wheel.",
       offerList: ["A debt table: see every debt, its interest and what to pay each month", "A monthly budget: know where your money goes and what you can save", "Two proven ways to pay debt off, so you can pick the one that feels right", "A rainy-day fund tracker: colour in squares as you save, like a game", "A filled-in example and a 12-month plan, so you never wonder what to do next"],
-      offerBtn: "Get the Debt Payoff Planner · $5", offerNote: "The PDF arrives right after payment · 23 pages · 3 colours to choose from", offerHref: "planners.html#planners",
+      offerBtn: "Get the Debt Payoff Planner · $8", offerNote: "The PDF arrives right after payment · 23 pages · 3 colours to choose from", offerHref: "planners.html#planners",
       giftKicker: "Free for you", giftTitle: "Your wheel, ready to print", giftText: "3 beautiful pages: your wheel, your plan for the month and a 30-day tracker.",
       download: "Download my wheel (PDF)", startOver: "Start over",
       disclaimer: "Based on the classic Wheel of Life coaching exercise and the GROW coaching model. General guidance, not professional advice.",
