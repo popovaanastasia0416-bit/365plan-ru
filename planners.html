@@ -480,9 +480,8 @@ document.querySelectorAll(".sw").forEach(function (b) {
     img.src = "img/" + (typeof PAGES !== "undefined" ? PAGES[pageIdx] : "cover") + "-" + currentTheme + ".jpg";
     img.alt = "Обложка планера, цвет «" + b.dataset.name + "»";
     document.getElementById("color-name").textContent = b.dataset.name;
-    var buy = document.querySelector("[data-buy]");
     var u = BUY_URLS[currentTheme] || BUY_URL;
-    if (u) buy.href = u;
+    if (u) document.querySelectorAll("[data-buy]").forEach(function (buy) { buy.href = u; buy.target = "_blank"; buy.rel = "noopener"; });
   });
 });
 
