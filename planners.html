@@ -427,7 +427,7 @@ footer .ft{padding-bottom:56px}
 const BUY_URL = "";
 const PINTEREST_URL = "";
 document.querySelectorAll("[data-buy]").forEach(function (a) {
-  if (BUY_URL) { a.href = BUY_URL; } else { a.addEventListener("click", function (e) { e.preventDefault(); alert("Оплата скоро заработает."); }); }
+  if (BUY_URL) { a.href = BUY_URL; a.target = "_blank"; a.rel = "noopener"; } else { a.addEventListener("click", function (e) { e.preventDefault(); alert("Оплата скоро заработает."); }); }
 });
 
 var dlg = document.getElementById("look");
