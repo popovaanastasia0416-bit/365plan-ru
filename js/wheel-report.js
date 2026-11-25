@@ -120,7 +120,7 @@
       how: "How to start", and: " and ",
       offK: "So it does not stay in your head", offT: "Get your money in order, *one small step* at a time",
       offP: "When your debts and spending are on paper, the worry gets smaller. The planner shows you where to start and lets you watch your debt shrink every month.",
-      offAvail: "What you get", offSoon: "Planners for the other areas are coming soon.",
+      offAvail: "What you get", colors: ["Fuchsia & Alabaster", "Cherry & Pistachio", "Black & White"], prev: "Previous colour", next: "Next colour", join: "Join a life without debt", offSoon: "Planners for the other areas are coming soon.",
       offFinWeak: function (s) { return "Your Finances score is " + s + " out of 10 right now. This planner helps most right there."; }
     },
     ru: {
@@ -136,7 +136,7 @@
       how: "С чего начать", and: " и ",
       offK: "Чтобы не держать всё в голове", offT: "Наведите порядок в деньгах: *шаг за шагом*",
       offP: "Когда долги и траты записаны на бумаге, тревоги становится меньше. Планер подскажет, с чего начать, и вы увидите, как долг уменьшается с каждым месяцем.",
-      offAvail: "Что вы получите", offSoon: "Планеры для других сфер уже готовим.",
+      offAvail: "Что вы получите", colors: ["Фуксия и алебастр", "Вишня и фисташка", "Чёрно-белый"], prev: "Предыдущий цвет", next: "Следующий цвет", join: "Присоединяйся к жизни без долгов", offSoon: "Планеры для других сфер уже готовим.",
       offFinWeak: function (s) { return "Финансы у вас сейчас на " + s + " из 10. Именно с ними планер поможет лучше всего."; }
     }
   };
@@ -185,9 +185,6 @@
     h += '<div class="rp-gauge-n"><b class="rp-count" data-to="' + avg.toFixed(1) + '">' + num(avg) + '</b></div></div><div><p class="rp-k">' + esc(T.yourResult) + '</p><h2>' + em(U.tableTitle) + '</h2><p class="rp-small">' + esc(U.avg) + ': ' + num(avg) + ' ' + esc(T.of10) + '</p></div></div>';
     h += '<div class="rp-tbl-cols"><div class="rp-col rp-col-s"><p class="rp-col-h">' + esc(U.strongCol) + '</p>' + (strong.length ? '<ul>' + strong.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneStrong) + '</p>') + '</div>';
     h += '<div class="rp-col rp-col-w"><p class="rp-col-h">' + esc(U.weakCol) + '</p>' + (weak.length ? '<ul>' + weak.map(row).join('') + '</ul>' : '<p class="rp-empty">' + esc(U.noneWeak) + '</p>') + '</div></div></div>';
-    /* ribbon */
-    var rib = areas.map(function (a) { return '<span style="color:' + a.color + '">' + esc(a.name) + '</span><i>✦</i>'; }).join('');
-    h += '<div class="rp-ribbon" aria-hidden="true"><div>' + rib + rib + '</div></div>';
     /* 2. praise */
     var praiseSet = strong.length ? strong : byHigh.slice(0, 2);
     var names = praiseSet.slice(0, 3).map(function (i) { return areas[i].name; });
@@ -203,15 +200,15 @@
     /* 4. offer */
     var finWeak = weak.some(function (i) { return areas[i].key === "finances"; });
     var fs2 = scores[areas.map(function (a) { return a.key; }).indexOf("finances")];
-    h += '<div class="rp-offer rp-rv"><div class="rp-offer-img"><img src="img/cover-cherry.jpg" alt=""></div><div class="rp-offer-t">';
+    h += '<div class="rp-offer rp-rv"><div class="rp-offer-img"><div class="rp-stage"><a class="rp-book" href="' + T.offerHref + '" aria-label="' + esc(T.offerBtn) + '"><img id="rp-cover" src="img/cover-cherry.jpg" alt=""></a></div><div class="rp-sw" role="radiogroup"><button type="button" class="on" role="radio" aria-checked="true" data-i="0" title="' + esc(U.colors[0]) + '" style="--a:#890149;--b:#F3F3E7"></button><button type="button" role="radio" aria-checked="false" data-i="1" title="' + esc(U.colors[1]) + '" style="--a:#690627;--b:#BDD999"></button><button type="button" role="radio" aria-checked="false" data-i="2" title="' + esc(U.colors[2]) + '" style="--a:#111;--b:#fff"></button></div></div><div class="rp-offer-t">';
     h += '<p class="rp-k">' + esc(U.offK) + '</p><h3>' + em(U.offT) + '</h3><p class="rp-offer-p">' + esc(U.offP) + '</p>';
     h += (finWeak ? '<p class="rp-offer-p rp-offer-fin">' + esc(U.offFinWeak(fs2)) + '</p>' : '') + '<p class="rp-offer-av">' + esc(U.offAvail) + '</p>';
     h += '<ul>' + T.offerList.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-    h += '<a class="rp-buy" href="' + T.offerHref + '"><span>' + esc(T.offerBtn) + '</span></a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
+    h += '<a class="rp-buy rp-buy-main" href="' + T.offerHref + '"><span>' + esc(T.offerBtn) + '</span></a><p class="rp-small">' + esc(T.offerNote) + ' · ' + esc(U.offSoon) + '</p></div></div>';
     /* gift */
     h += '<div class="rp-gift rp-rv"><div><p class="rp-k">' + esc(T.giftKicker) + '</p><h3>' + esc(T.giftTitle) + '</h3><p>' + esc(T.giftText) + '</p></div><div class="rp-gift-b"><button type="button" class="rp-dl wq-pdf">' + esc(T.download) + '</button><button type="button" class="wq-reset rp-reset">' + esc(T.startOver) + '</button></div></div>';
     h += '<p class="rp-note">' + esc(T.disclaimer) + '</p>';
-    box.innerHTML = h; box.hidden = false; window.syncWheelBand(); rpAnimate(box);
+    box.innerHTML = h; box.hidden = false; window.syncWheelBand(); initOffer(box); rpAnimate(box);
   };
 
 
@@ -251,6 +248,23 @@
   function countUp(el) {
     var to = parseFloat(el.dataset.to), t0 = performance.now(), D = 1300;
     (function step(t) { var k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = num(to * e); if (k < 1) requestAnimationFrame(step); })(t0);
+  }
+
+  /* colour switcher inside the offer block */
+  var THEMES = ["cherry", "lime", "bw"];
+  var PAYHIP = {en: ["https://payhip.com/b/rEA5v", "https://payhip.com/b/3M9JS", "https://payhip.com/b/dE1Yx"], ru: []};
+  function initOffer(box) {
+    var img = box.querySelector("#rp-cover"); if (!img) return;
+    var cur = 0, buy = box.querySelector(".rp-buy-main"), sws = box.querySelectorAll(".rp-sw button");
+    THEMES.forEach(function (k) { var p = new Image(); p.src = "img/cover-" + k + ".jpg"; });
+    function go(i) {
+      cur = (i + 3) % 3; img.classList.add("sw-out");
+      setTimeout(function () { img.src = "img/cover-" + THEMES[cur] + ".jpg"; img.classList.remove("sw-out"); }, 140);
+      sws.forEach(function (b, k) { b.classList.toggle("on", k === cur); b.setAttribute("aria-checked", k === cur ? "true" : "false"); });
+      var u = (PAYHIP[LANG] || [])[cur]; if (buy && u) { buy.href = u; buy.target = "_blank"; buy.rel = "noopener"; }
+    }
+    sws.forEach(function (b, k) { b.addEventListener("click", function () { go(k); }); });
+    go(0);
   }
   function rpAnimate(box) {
     var ck = ckLoad();

@@ -495,6 +495,49 @@ footer .logo-word{display:block !important;height:22px}
 .ft-copy{background:transparent !important;color:var(--ink-2) !important;border-top:1px solid var(--line);width:min(1160px,100% - 40px);margin:0 auto !important;padding:20px 0 28px !important;text-align:left !important;font-size:14px}
 .ft-copy{display:none !important}
 footer .ft{padding-bottom:56px}
+
+/* ===== polish: flowers, hovers, calm book ===== */
+/* hover: small zoom, no offset shadow plate */
+.rp-scard:hover,.rp-wcard:hover,.rp-anim .rp-scard.rp-rv.in:hover,.rp-anim .rp-wcard.rp-rv.in:hover{transform:scale(1.025) !important;box-shadow:none !important;transition:transform .3s ease !important}
+.rp-col:hover{transform:none}
+/* "How to start" in the flower colour */
+.rp-wcard .rp-k{color:var(--c)}
+/* calm book: static, clickable, caption with arrow */
+.rp-offer-img img,.rp-offer:hover .rp-offer-img img{animation:none !important;transform:rotate(-3deg);transition:transform .3s ease}
+.rp-offer-img .rp-book{display:block}
+.rp-offer-img .rp-book:hover img{transform:rotate(-3deg) scale(1.03)}
+.rp-join{display:flex;align-items:flex-end;gap:10px;margin-top:6px}
+.rp-arrow{width:70px;height:62px;flex:none;stroke:#FF8AC0;overflow:visible;margin-left:6px}
+.rp-join span{font-family:'Unbounded','Jost',Arial,sans-serif;font-weight:700;font-size:15px;line-height:1.25;color:#FFD3E6;padding-bottom:4px}
+@media (max-width:860px){.rp-offer-img{max-width:260px}}
+
+/* ===== colour switcher in the offer block ===== */
+.rp-offer-img{max-width:320px;margin:0 auto}
+.rp-stage{position:relative}
+.rp-offer-img img{transition:opacity .14s ease,transform .3s ease}
+.rp-offer-img img.sw-out{opacity:0}
+.rp-nav{position:absolute;top:50%;width:38px;height:38px;margin-top:-19px;border:0;border-radius:50%;background:rgba(255,246,249,.92);color:#422B26;font:700 26px/36px Arial,sans-serif;cursor:pointer;z-index:2;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .2s}
+.rp-nav:hover{transform:scale(1.1)}
+.rp-nav-l{left:-14px}.rp-nav-r{right:-14px}
+.rp-sw{display:flex;justify-content:center;gap:12px;margin-top:20px}
+.rp-sw button{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.35);padding:0;cursor:pointer;background:linear-gradient(135deg,var(--a) 50%,var(--b) 50%);transition:transform .2s,border-color .2s}
+.rp-sw button:hover{transform:scale(1.12)}
+.rp-sw button.on{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+.rp-cname{text-align:center;color:#FFD3E6;font-weight:600;font-size:15px;margin-top:8px}
+.rp-join{flex-direction:column;align-items:center;gap:2px;margin-top:6px;text-align:center}
+.rp-arrow{width:44px;height:58px;margin:0}
+.rp-join span{padding:0;font-size:14px}
+@media (max-width:860px){.rp-nav-l{left:-8px}.rp-nav-r{right:-8px}}
+.rp-sw{gap:16px;margin-top:22px;padding:3px 0}
+.rp-sw button{width:34px;height:34px;flex:none;box-sizing:border-box;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.45);background:linear-gradient(135deg,var(--a) 0 50%,var(--b) 50% 100%);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.rp-sw button.on{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35),0 2px 8px rgba(0,0,0,.35)}
+.rp-offer-img img,.rp-offer:hover .rp-offer-img img,.rp-offer-img .rp-book:hover img{transform:none !important}
+.rp-offer-img .rp-book:hover img{transform:scale(1.02) !important}
+.rp-join{display:none !important}
+.rp-sw{gap:18px;margin-top:22px;padding:6px 0}
+.rp-sw button{width:34px;height:34px;flex:none;box-sizing:border-box;border:0;padding:0;border-radius:50%;background:linear-gradient(135deg,var(--a) 0 50%,var(--b) 50% 100%) !important;background-clip:border-box;box-shadow:none;transform:none}
+.rp-sw button:hover{transform:scale(1.1)}
+.rp-sw button.on{box-shadow:0 0 0 3px #3b2520,0 0 0 5px #fff}
 </style>
 </head>
 <body>
