@@ -293,6 +293,21 @@ footer .ft{padding-bottom:56px}
 .lang i{font-style:normal;color:var(--ink-3)}
 .lang a{color:var(--ink-3);text-decoration:none;font-weight:700}
 .lang a:hover{color:var(--acc-dark)}
+
+/* Q&A accordion */
+.qa h2{font-family:'Unbounded','Jost',Arial,sans-serif;font-size:26px;font-weight:700;margin-bottom:26px}
+.qa-i{border-bottom:1px solid #E9C9D8;background:transparent}
+.qa-i:first-of-type{border-top:1px solid #E9C9D8}
+.qa-i summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 4px}
+.qa-i summary::-webkit-details-marker{display:none}
+.qa-i summary h4{margin:0 !important;font-size:18px;font-weight:700;line-height:1.35}
+.qa-i summary:hover h4{color:var(--acc-dark)}
+.qa-i summary i{flex:none;position:relative;width:16px;height:16px}
+.qa-i summary i::before,.qa-i summary i::after{content:"";position:absolute;left:0;top:7px;width:16px;height:2px;background:var(--ink);transition:transform .25s ease}
+.qa-i summary i::after{transform:rotate(90deg)}
+.qa-i[open] summary i::after{transform:rotate(0)}
+.qa-i p{margin:0;padding:0 40px 24px 4px;color:var(--ink-2)}
+.qa-i summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -339,13 +354,13 @@ footer .ft{padding-bottom:56px}
         <div class="descr">
           <p>Что внутри:</p>
           <ol>
-            <li>список долгов с процентами в месяц и примером заполнения;</li>
-            <li>бюджет на месяц с готовыми статьями: план и факт;</li>
-            <li>2 рабочих метода погашения долгов;</li>
-            <li>подушка безопасности с трекером, где копить — как играть;</li>
-            <li>23 страницы: план на 12 месяцев вперёд.</li>
+            <li>список долгов: сколько каждый стоит вам в месяц, с примером заполнения;</li>
+            <li>бюджет на месяц: план и факт, необязательные траты выделены;</li>
+            <li>снежный ком или лавина: метод и порядок выплат;</li>
+            <li>подушка 50 000 ₽: 112 клеток, которые вы зачёркиваете, когда откладываете;</li>
+            <li>12 страниц на месяцы, в каждой — небольшое денежное задание.</li>
           </ol>
-          <p>Несколько минут в неделю — и вы видите, как долг тает ♥</p>
+          <p>20 минут в неделю — и вы видите, как долг тает ♥</p>
           <p>Сразу после оплаты — ссылка на PDF. 23 страницы, формат A4.</p>
         </div>
           <div class="actions"><a class="buy" href="#" data-buy>Купить за 390 ₽</a></div>
@@ -372,14 +387,11 @@ footer .ft{padding-bottom:56px}
 
   <section class="qa" id="qa">
     <h2>Вопросы и ответы</h2>
-    <h4>Где мой планер после оплаты?</h4>
-    <p>Уже у вас.<br>Сразу после оплаты придёт ссылка на PDF.<br>Скачайте → распечатайте или откройте на планшете → готово.</p>
-    <h4>Нужно что-то устанавливать?</h4>
-    <p>Нет. Никаких приложений.<br>PDF открывается на любом телефоне и компьютере. Чтобы писать прямо в файле, подойдёт любое PDF-приложение, например GoodNotes или Xodo.</p>
-    <h4>Можно с телефона?</h4>
-    <p>Да 📱<br>Откройте PDF на телефоне, чтобы сверяться с планом в дороге.<br>Заполнять удобнее на распечатке или планшете.</p>
-    <h4>Потеряла ссылку, что делать?</h4>
-    <p>Загляните в чек от платёжного сервиса на почте: ссылка там.<br>Если не нашли, напишите нам на <a href="mailto:support.my365plan@gmail.com">support.my365plan@gmail.com</a> с той почты, с которой оплачивали.</p>
+    <details class="qa-i"><summary><h4>Где мой планер после оплаты?</h4><i aria-hidden="true"></i></summary><p>Уже у вас.<br>Сразу после оплаты придёт ссылка на PDF.<br>Скачайте → распечатайте или откройте на планшете → готово.</p></details>
+    <details class="qa-i"><summary><h4>Как пользоваться планером: распечатать или заполнять на планшете?</h4><i aria-hidden="true"></i></summary><p>Как вам удобнее.<br>Распечатать: откройте файл A4 и печатайте в масштабе 100%. Подойдёт любой домашний принтер.<br>На планшете: откройте PDF в GoodNotes, Notability или любом PDF-приложении и пишите стилусом или пальцем.<br>Страницы можно печатать сколько угодно раз, например чтобы начать месяц заново.</p></details>
+    <details class="qa-i"><summary><h4>Нужно что-то устанавливать?</h4><i aria-hidden="true"></i></summary><p>Нет. Никаких приложений.<br>PDF открывается на любом телефоне и компьютере. Чтобы писать прямо в файле, подойдёт любое PDF-приложение, например GoodNotes или Xodo.</p></details>
+    <details class="qa-i"><summary><h4>Можно с телефона?</h4><i aria-hidden="true"></i></summary><p>Да 📱<br>Откройте PDF на телефоне, чтобы сверяться с планом в дороге.<br>Заполнять удобнее на распечатке или планшете.</p></details>
+    <details class="qa-i"><summary><h4>Потеряла ссылку, что делать?</h4><i aria-hidden="true"></i></summary><p>Загляните в чек от платёжного сервиса на почте: ссылка там.<br>Если не нашли, напишите нам на <a href="mailto:support.my365plan@gmail.com">support.my365plan@gmail.com</a> с той почты, с которой оплачивали.</p></details>
   </section>
 </div>
 
@@ -408,11 +420,11 @@ footer .ft{padding-bottom:56px}
       </div>
       <p><b>Что внутри:</b></p>
       <ol>
-        <li>список долгов с процентами в месяц и примером заполнения;</li>
-        <li>бюджет на месяц с готовыми статьями: план и факт;</li>
-        <li>2 рабочих метода погашения долгов;</li>
-        <li>подушка безопасности с трекером, где копить — как играть;</li>
-        <li>23 страницы: план на 12 месяцев вперёд.</li>
+        <li>список долгов: сколько каждый стоит вам в месяц, с примером заполнения;</li>
+        <li>бюджет на месяц: план и факт, необязательные траты выделены;</li>
+        <li>снежный ком или лавина: метод и порядок выплат;</li>
+        <li>подушка 50 000 ₽: 112 клеток, которые вы зачёркиваете, когда откладываете;</li>
+        <li>12 страниц на месяцы, в каждой — небольшое денежное задание.</li>
       </ol>
       <p class="pm-note">PDF сразу после оплаты. 23 страницы, формат A4.</p>
       <a class="buy" href="#" data-buy>Купить за 390 ₽</a>
