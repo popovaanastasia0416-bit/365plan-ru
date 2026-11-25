@@ -195,7 +195,7 @@
     h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.balTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
     var growSet = weak.length ? weak : [byLow[0]];
     h += '<div class="rp-wlist">';
-    growSet.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-wcard rp-rv" style="--c:' + a.color + '"><div class="rp-wcard-l"><span class="rp-meter" role="img" aria-label="' + scores[i] + ' / 10">' + meter(scores[i]) + '</span><h4>' + esc(a.name) + '</h4><p>' + esc(d.means) + '</p></div><div class="rp-wcard-r"><p class="rp-k">' + esc(U.how) + '</p><ul class="rp-check">' + d.actions.map(function (x, n) { return '<li role="checkbox" tabindex="0" aria-checked="false" data-ck="' + a.key + n + '"><span class="rp-box"><svg viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9"/></svg></span>' + esc(x) + '</li>'; }).join('') + '</ul><p class="rp-tipline">' + esc(d[lvl(scores[i])]) + '</p></div></div>'; });
+    growSet.forEach(function (i) { var a = areas[i], d = DL[a.key]; h += '<div class="rp-wcard rp-rv" style="--c:' + a.color + '"><div class="rp-wcard-l"><span class="rp-bar" role="img" aria-label="' + scores[i] + ' / 10">' + bar(scores[i]) + '</span><h4>' + esc(a.name) + '</h4><p>' + esc(d.means) + '</p></div><div class="rp-wcard-r"><p class="rp-k">' + esc(U.how) + '</p><ul class="rp-check">' + d.actions.map(function (x, n) { return '<li role="checkbox" tabindex="0" aria-checked="false" data-ck="' + a.key + n + '"><span class="rp-box"><svg viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9"/></svg></span>' + esc(x) + '</li>'; }).join('') + '</ul><p class="rp-tipline">' + esc(d[lvl(scores[i])]) + '</p></div></div>'; });
     h += '</div></div>';
     /* 4. offer */
     var finWeak = weak.some(function (i) { return areas[i].key === "finances"; });
@@ -226,6 +226,7 @@
 
   /* ---------------- motion ---------------- */
   var PET = ''; (function () { for (var q = 0; q < 6; q++) PET += '<ellipse cx="12" cy="5.6" rx="3" ry="3.9" transform="rotate(' + (q * 60) + ' 12 12)"/>'; })();
+  function bar(n) { var o = ''; for (var k = 1; k <= 10; k++) o += '<i' + (k <= n ? ' class="on"' : '') + '></i>'; return o; }
   function meter(n) { var o = ''; for (var k = 1; k <= 10; k++) o += '<i' + (k <= n ? ' class="on"' : '') + '><svg viewBox="0 0 24 24" aria-hidden="true"><g>' + PET + '</g><circle cx="12" cy="12" r="3.3" class="ct"/></svg></i>'; return o; }
   var CK_KEY = "my365-checks";
   function ckLoad() { try { return JSON.parse(localStorage.getItem(CK_KEY) || "{}"); } catch (e) { return {}; } }
