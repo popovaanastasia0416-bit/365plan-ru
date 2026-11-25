@@ -189,7 +189,7 @@
     var praiseSet = strong.length ? strong : byHigh.slice(0, 2);
     var names = praiseSet.slice(0, 3).map(function (i) { return areas[i].name; });
     h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.praiseTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(strong.length ? U.praiseIntro(joinNames(names)) : U.praiseNone(joinNames(names))) + '</p><div class="rp-sgrid">';
-    praiseSet.forEach(function (i, k) { var a = areas[i]; h += '<div class="rp-scard rp-rv" style="--c:' + a.color + ';--d:' + (k % 3) * 90 + 'ms"><div class="rp-scard-top"><span>' + esc(a.name) + '</span></div><span class="rp-meter" role="img" aria-label="' + scores[i] + ' / 10">' + meter(scores[i]) + '</span><p>' + esc(PR[a.key]) + '</p></div>'; });
+    praiseSet.forEach(function (i, k) { var a = areas[i]; h += '<div class="rp-scard rp-rv" style="--c:' + a.color + ';--d:' + (k % 3) * 90 + 'ms"><div class="rp-scard-top"><span>' + esc(a.name) + '</span></div><p>' + esc(PR[a.key]) + '</p></div>'; });
     h += '</div></div>';
     /* 3. balance */
     h += '<div class="rp-sec"><h3 class="rp-h rp-rv">' + em(U.balTitle) + '</h3><p class="rp-praise-lead rp-rv">' + esc(weak.length ? U.balIntro : U.balNone) + '</p>';
