@@ -308,6 +308,12 @@ footer .ft{padding-bottom:56px}
 .qa-i[open] summary i::after{transform:rotate(0)}
 .qa-i p{margin:0;padding:0 40px 24px 4px;color:var(--ink-2)}
 .qa-i summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+/* square product images */
+.dots i{background:rgba(66,43,38,.25) !important;box-shadow:none !important}
+.dots i.on{background:#422B26 !important}
+.card .img{height:auto;aspect-ratio:1/1}
+.pm-thumbs button{flex:0 0 70px;width:70px;height:70px}
 </style>
 </head>
 <body>
@@ -340,7 +346,7 @@ footer .ft{padding-bottom:56px}
 
     <article class="card" data-cat="finances">
       <span class="badge">ХИТ</span>
-      <div class="img" id="cover-box"><img id="cover-img" src="img/cover-cherry.jpg" alt="Обложка планера, цвет «Фуксия и алебастр»"><div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div></div>
+      <div class="img" id="cover-box"><img id="cover-img" src="img/g1-cherry.jpg" alt="Обложка планера, цвет «Фуксия и алебастр»"><div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
       <div class="body">
         <div class="colors" role="radiogroup" aria-label="Цвет">
             <p class="colors-label">Цвет: <b id="color-name">Фуксия и алебастр</b></p>
@@ -400,9 +406,8 @@ footer .ft{padding-bottom:56px}
   <div class="pm">
     <div class="pm-gal">
       <div class="pm-main" id="pm-main">
-        <img id="pm-img" src="img/cover-cherry.jpg" alt="">
+        <img id="pm-img" src="img/g1-cherry.jpg" alt="">
         <div class="lens" id="pm-lens" aria-hidden="true"></div>
-        <span class="pm-hint">Превью · 4 из 23 страниц</span>
       </div>
       <div class="pm-thumbs" id="pm-thumbs"></div>
     </div>
@@ -452,14 +457,14 @@ document.querySelectorAll("[data-buy]").forEach(function (a) {
 });
 
 var dlg = document.getElementById("look");
-var PM_PAGES = ["cover", "debt", "fund", "month"], pmIdx = 0;
+var PM_PAGES = ["g1", "g2", "g3", "g4", "g5", "g6"], pmIdx = 0;
 function pmRender() {
   var t = currentTheme;
   document.getElementById("pm-img").src = "img/" + PM_PAGES[pmIdx] + "-" + t + ".jpg";
   var th = document.getElementById("pm-thumbs"); th.innerHTML = "";
   PM_PAGES.forEach(function (p, k) {
     var b = document.createElement("button"); b.type = "button"; b.className = k === pmIdx ? "on" : "";
-    b.setAttribute("aria-label", "Страница " + (k + 1));
+    b.setAttribute("aria-label", "Картинка " + (k + 1));
     b.innerHTML = '<img src="img/' + p + '-' + t + '.jpg" alt="">';
     b.addEventListener("click", function () { pmIdx = k; pmRender(); });
     th.appendChild(b);
@@ -467,7 +472,7 @@ function pmRender() {
   dlg.querySelectorAll(".sw").forEach(function (x) { var on = x.dataset.theme === t; x.classList.toggle("on", on); x.setAttribute("aria-checked", on ? "true" : "false"); });
   var nm = document.querySelector('.sw[data-theme="' + t + '"]'); dlg.querySelector(".pm-color-name").textContent = nm ? nm.dataset.name : "";
 }
-function pmOpen(e) { if (e) e.preventDefault(); clearInterval(flip); pmIdx = typeof pageIdx !== "undefined" ? [0, 1, 3][pageIdx] : 0; pmRender(); dlg.showModal(); }
+function pmOpen(e) { if (e) e.preventDefault(); clearInterval(flip); pmIdx = typeof pageIdx !== "undefined" ? pageIdx : 0; pmRender(); dlg.showModal(); }
 
 document.getElementById("cover-box").addEventListener("click", pmOpen);
 dlg.querySelector(".x").addEventListener("click", function () { dlg.close(); });
@@ -498,7 +503,7 @@ document.querySelectorAll(".sw").forEach(function (b) {
     b.classList.add("on"); b.setAttribute("aria-checked", "true");
     currentTheme = b.dataset.theme;
     var img = document.getElementById("cover-img");
-    img.src = "img/" + (typeof PAGES !== "undefined" ? PAGES[pageIdx] : "cover") + "-" + currentTheme + ".jpg";
+    img.src = "img/" + (typeof PAGES !== "undefined" ? PAGES[pageIdx] : "g1") + "-" + currentTheme + ".jpg";
     img.alt = "Обложка планера, цвет «" + b.dataset.name + "»";
     document.getElementById("color-name").textContent = b.dataset.name;
     var u = BUY_URLS[currentTheme] || BUY_URL;
@@ -506,17 +511,17 @@ document.querySelectorAll(".sw").forEach(function (b) {
   });
 });
 
-/* hover preview: cover -> debt list -> month page */
-var PAGES = ["cover", "debt", "month"], pageIdx = 0, flip = null;
+/* hover preview: flip through the six product images */
+var PAGES = ["g1", "g2", "g3", "g4", "g5", "g6"], pageIdx = 0, flip = null;
 function showPage(i) {
   pageIdx = i;
   document.getElementById("cover-img").src = "img/" + PAGES[i] + "-" + currentTheme + ".jpg";
   document.querySelectorAll(".dots i").forEach(function (d, k) { d.classList.toggle("on", k === i); });
 }
 var box = document.getElementById("cover-box");
-box.addEventListener("mouseenter", function () { showPage(1); flip = setInterval(function () { showPage((pageIdx + 1) % 3); }, 1100); });
+box.addEventListener("mouseenter", function () { showPage(1); flip = setInterval(function () { showPage((pageIdx + 1) % PAGES.length); }, 1400); });
 box.addEventListener("mouseleave", function () { clearInterval(flip); showPage(0); });
-["cover", "debt", "month"].forEach(function (p) { ["bw", "lime", "cherry"].forEach(function (t) { var im = new Image(); im.src = "img/" + p + "-" + t + ".jpg"; }); });
+PAGES.forEach(function (p) { ["bw", "lime", "cherry"].forEach(function (t) { var im = new Image(); im.src = "img/" + p + "-" + t + ".jpg"; }); });
 
 document.querySelectorAll(".cat").forEach(function (b) {
   b.addEventListener("click", function () {
