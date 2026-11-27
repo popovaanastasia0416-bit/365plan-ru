@@ -316,6 +316,11 @@ footer .ft{padding-bottom:56px}
 .dots i.on{background:#422B26 !important}
 .card .img{height:auto;aspect-ratio:1/1}
 .pm-thumbs button{flex:0 0 70px;width:70px;height:70px}
+
+/* free kit card */
+.card .badge.free-badge{background:#24402C}
+#free-box{cursor:default}
+.free-alt{font-size:14px;font-weight:700;color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -372,6 +377,25 @@ footer .ft{padding-bottom:56px}
           <p>Сразу после оплаты — ссылка на PDF. 23 страницы, формат A4.</p>
         </div>
           <div class="actions"><a class="buy" href="#" data-buy>Купить за 390 ₽</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="finances">
+      <span class="badge free-badge">FREE</span>
+      <div class="img" id="free-box"><img id="free-img" src="img/free1.jpg" alt="Бесплатный набор для накоплений 2027"><div class="dots free-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <h3>Бесплатный набор для накоплений 2027</h3>
+        <div class="descr">
+          <p>Что внутри:</p>
+          <ol>
+            <li>ёлка-копилка на 25 000 ₽;</li>
+            <li>ёлка-копилка на 50 000 ₽;</li>
+            <li>пустая ёлка для своей цели;</li>
+            <li>15 способов найти деньги.</li>
+          </ol>
+          <p>4 листа для печати. Без оплаты и регистрации.</p>
+        </div>
+          <div class="actions"><a class="buy" href="free-files/Besplatnyy-nabor-2027_A4.pdf" download>Скачать бесплатно</a></div>
       </div>
     </article>
 
@@ -518,12 +542,21 @@ var PAGES = ["g1", "g2", "g3", "g4", "g5", "g6"], pageIdx = 0, flip = null;
 function showPage(i) {
   pageIdx = i;
   document.getElementById("cover-img").src = "img/" + PAGES[i] + "-" + currentTheme + ".jpg";
-  document.querySelectorAll(".dots i").forEach(function (d, k) { d.classList.toggle("on", k === i); });
+  document.querySelectorAll("#cover-box .dots i").forEach(function (d, k) { d.classList.toggle("on", k === i); });
 }
 var box = document.getElementById("cover-box");
 box.addEventListener("mouseenter", function () { showPage(1); flip = setInterval(function () { showPage((pageIdx + 1) % PAGES.length); }, 1400); });
 box.addEventListener("mouseleave", function () { clearInterval(flip); showPage(0); });
 PAGES.forEach(function (p) { ["bw", "lime", "cherry"].forEach(function (t) { var im = new Image(); im.src = "img/" + p + "-" + t + ".jpg"; }); });
+
+/* free kit: flip through its four pages on hover */
+(function () {
+  var box = document.getElementById("free-box"), img = document.getElementById("free-img"), i = 0, t = null;
+  function show(k) { i = k; img.src = "img/free" + (k + 1) + ".jpg"; box.querySelectorAll(".dots i").forEach(function (d, n) { d.classList.toggle("on", n === k); }); }
+  box.addEventListener("mouseenter", function () { show(1); t = setInterval(function () { show((i + 1) % 4); }, 1400); });
+  box.addEventListener("mouseleave", function () { clearInterval(t); show(0); });
+  box.addEventListener("click", function () { clearInterval(t); show((i + 1) % 4); });
+})();
 
 document.querySelectorAll(".cat").forEach(function (b) {
   b.addEventListener("click", function () {
